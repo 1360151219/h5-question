@@ -1,15 +1,101 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
+    />
+    <style type="text/css">
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      #Loading {
+        width: 100px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid #333;
+        box-shadow: 0 0 0 2px white, inset 0 0 10px white;
+        background: #3498db;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      #Loading::before,
+      #Loading::after {
+        width: 600px;
+        height: 600px;
+        left: 50%;
+        top: -50%;
+        transform: translate(-50%, -50%);
+        content: "";
+        position: absolute;
+      }
+      #Loading::after {
+        border-radius: 40%;
+        background-color: rgba(51, 51, 51, 0.5);
+        animation: roll 10s linear infinite, fill 12s linear infinite;
+      }
+      #Loading::before {
+        border-radius: 47%;
+        background-color: rgba(51, 51, 51, 1);
+        animation: roll 12s linear infinite, fill 12s linear infinite;
+      }
+      @keyframes roll {
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      @keyframes fill {
+        50% {
+          width: 100px;
+          height: 100px;
+        }
+      }
+      #logo {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #load_wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgb(75, 153, 117);
+      }
+    </style>
   </head>
   <body>
+    <div id="load_wrap">
+      <div id="Loading"></div>
+      <img id="logo" src="./pivotStudio_logo.svg" />
+    </div>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
