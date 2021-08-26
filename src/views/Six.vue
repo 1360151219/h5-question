@@ -42,35 +42,71 @@
       <!-- 题目 -->
       <template
         ><v-img
-          src="../assets/NEW6A.svg"
-          lazy-src="../assets/NEW6A.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6A.svg'
+              : 'http://www.strk2.cn:3000/problems/6A.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6A.svg'
+              : 'http://www.strk2.cn:3000/problems/6A.svg'
+          "
           class="options option_1"
-          @click="$router.push('/')"
+          @click="clickToNext(4, 5, '/res')"
           max-width="30vh"
+          max-height="30vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW6B.svg"
-          lazy-src="../assets/NEW6B.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6B.svg'
+              : 'http://www.strk2.cn:3000/problems/6B.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6B.svg'
+              : 'http://www.strk2.cn:3000/problems/6B.svg'
+          "
           class="options option_2"
-          @click="$router.push('/')"
+          @click="clickToNext(0, 2, '/res')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW6C.svg"
-          lazy-src="../assets/NEW6C.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6C.svg'
+              : 'http://www.strk2.cn:3000/problems/6C.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6C.svg'
+              : 'http://www.strk2.cn:3000/problems/6C.svg'
+          "
           class="options option_3"
-          @click="$router.push('/')"
+          @click="clickToNext(2, 0, '/res')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW6D.svg"
-          lazy-src="../assets/NEW6D.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6D.svg'
+              : 'http://www.strk2.cn:3000/problems/6D.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW6D.svg'
+              : 'http://www.strk2.cn:3000/problems/6D.svg'
+          "
           class="options option_4"
-          @click="$router.push('/')"
+          @click="clickToNext(5, 1, '/res')"
           max-width="35vh"
+          max-height="35vh"
           contain
         ></v-img>
       </template>
@@ -83,7 +119,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { component } from "vue/types/umd";
+import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
 @Component({
@@ -93,7 +129,16 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class Six extends Vue {
-  pro = "开学要竞选班干部了，你最感兴趣的是哪个职位呢？";
+  @Prop()
+  clickToNext!: (c: number, p: number, url: string) => void;
+  pro = "";
+  isNew!: boolean;
+  created() {
+    this.isNew = this.$store.state.isNew;
+    this.pro = this.isNew
+      ? "开学要竞选班干部了，你最感兴趣的是哪个职位呢？ "
+      : "在成为HUSTer的这段日子里，以下哪个瞬间让你最幸福呢？";
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -225,25 +270,25 @@ export default class Six extends Vue {
 }
 .option_1 {
   position: absolute;
-  top: -15vh;
+  top: 7vh;
   left: 32vw;
   animation: upanddown_1 5000ms infinite alternate;
 }
 .option_2 {
   position: absolute;
-  top: -12vh;
+  top: 8vh;
   left: -5vw;
   animation: upanddown_2 3000ms infinite alternate;
 }
 .option_3 {
   position: absolute;
-  top: 13vh;
+  top: 40vh;
   left: 50vw;
   animation: upanddown_3 4000ms 200ms infinite alternate;
 }
 .option_4 {
   position: absolute;
-  top: 10vh;
+  top: 30vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
 }

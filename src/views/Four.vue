@@ -52,35 +52,71 @@
       <!-- 题目 -->
       <template
         ><v-img
-          src="../assets/NEW4A.svg"
-          lazy-src="../assets/NEW4A.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4A.svg'
+              : 'http://www.strk2.cn:3000/problems/4A.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4A.svg'
+              : 'http://www.strk2.cn:3000/problems/4A.svg'
+          "
           class="options option_1"
-          @click="$router.push('/five')"
+          @click="clickToNext(0, 1, '/five')"
           max-width="30vh"
+          max-height="30vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW4B.svg"
-          lazy-src="../assets/NEW4B.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4B.svg'
+              : 'http://www.strk2.cn:3000/problems/4B.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4B.svg'
+              : 'http://www.strk2.cn:3000/problems/4B.svg'
+          "
           class="options option_2"
-          @click="$router.push('/five')"
+          @click="clickToNext(3, 3, '/five')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW4C.svg"
-          lazy-src="../assets/NEW4C.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4C.svg'
+              : 'http://www.strk2.cn:3000/problems/4C.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4C.svg'
+              : 'http://www.strk2.cn:3000/problems/4C.svg'
+          "
           class="options option_3"
-          @click="$router.push('/five')"
+          @click="clickToNext(2, 2, '/five')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW4D.svg"
-          lazy-src="../assets/NEW4D.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4D.svg'
+              : 'http://www.strk2.cn:3000/problems/4D.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW4D.svg'
+              : 'http://www.strk2.cn:3000/problems/4D.svg'
+          "
           class="options option_4"
-          @click="$router.push('/five')"
+          @click="clickToNext(5, 5, '/five')"
           max-width="35vh"
+          max-height="35vh"
           contain
         ></v-img>
       </template>
@@ -93,7 +129,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { component } from "vue/types/umd";
+import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
 @Component({
@@ -103,7 +139,16 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class Four extends Vue {
-  pro = "你对华科的印象最符合哪个描述呢？";
+  @Prop()
+  clickToNext!: (c: number, p: number, url: string) => void;
+  pro = "";
+  isNew!: boolean;
+  created() {
+    this.isNew = this.$store.state.isNew;
+    this.pro = this.isNew
+      ? "你对华科的印象最符合哪个描述呢？"
+      : "考试周到来，哪里是你的最佳复习地点？";
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -229,25 +274,25 @@ export default class Four extends Vue {
 }
 .option_1 {
   position: absolute;
-  top: -15vh;
+  top: 7vh;
   left: 32vw;
   animation: upanddown_1 5000ms infinite alternate;
 }
 .option_2 {
   position: absolute;
-  top: -12vh;
+  top: 8vh;
   left: -5vw;
   animation: upanddown_2 3000ms infinite alternate;
 }
 .option_3 {
   position: absolute;
-  top: 13vh;
+  top: 40vh;
   left: 50vw;
   animation: upanddown_3 4000ms 200ms infinite alternate;
 }
 .option_4 {
   position: absolute;
-  top: 10vh;
+  top: 30vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
 }

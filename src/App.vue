@@ -1,10 +1,12 @@
 <template>
   <v-container>
     <div id="app">
-      <div class="title">震惊!你的华中大形象竟是...</div>
+      <div class="title" v-show="$route.fullPath !== '/res'">
+        震惊!你的华中大形象竟是...
+      </div>
       <transition name="fade">
         <keep-alive>
-          <router-view />
+          <router-view :clickToNext="clickToNext" :num="num" />
         </keep-alive>
       </transition>
     </div>
@@ -13,10 +15,41 @@
 <script lang="ts" type="module">
 import Vue from "vue";
 import Component from "vue-class-component";
-
+import { Watch } from "vue-property-decorator";
 @Component({})
 export default class App extends Vue {
   isShow = false;
+  clickToNext(c: number, p: number, url: string) {
+    this.$store.commit("handleC", c);
+    this.$store.commit("handleP", p);
+    this.$router.push(url);
+  }
+  colors = [
+    "#DCAC6D",
+    "#ACC2D2",
+    "#CF948E",
+    "#9AB7A4",
+    "#D6C8D3",
+    "#A7A4A1",
+    "#AE9E8E",
+    "#ACB484",
+    "#5EC0B8",
+    "#ECB7C0",
+    "#5A8AC8",
+    "#3E8C75",
+    "#60B3E5",
+    "#6EAF89",
+  ];
+  get randomNum() {
+    return Math.ceil(Math.random() * 14);
+  }
+  num = -1;
+  @Watch("$route")
+  routeChange() {
+    this.num = this.randomNum;
+    if (this.$route.fullPath === "/res")
+      document.body.style.backgroundColor = this.colors[this.num - 1];
+  }
   // preload = function () {
   //   let imgs = [
   //     "../static/back_flower.svg",

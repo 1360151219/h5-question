@@ -24,7 +24,6 @@
         max-width="34vh"
         contain
         key="back"
-        v-show="isShow"
       ></v-img>
 
       <v-img
@@ -65,23 +64,58 @@
       >
       </v-img>
       <!-- 开始 -->
-      <v-img
-        src="http://strk2.cn:3000/img/start.8ee8bdba.svg"
-        lazy-src="../assets/start.svg"
-        contain
-        class="zindex-10 start"
-      ></v-img>
-
-      <v-img
-        src="../assets/start_btn.svg"
-        lazy-src="../assets/start_btn.svg"
-        contain
-        max-width="23vh"
-        class="start_btn"
-        @click="$router.push('/one')"
-      ></v-img>
+      <transition name="opacity">
+        <div v-show="!isChoose">
+          <v-img
+            src="http://strk2.cn:3000/img/start.8ee8bdba.svg"
+            lazy-src="../assets/start.svg"
+            contain
+            class="zindex-10 start"
+          ></v-img>
+          <v-img
+            src="../assets/start_btn.svg"
+            lazy-src="../assets/start_btn.svg"
+            contain
+            max-width="23vh"
+            class="start_btn"
+            @click="isChoose = true"
+          ></v-img></div
+      ></transition>
+      <!-- 选择新老生 -->
+      <transition name="opacity">
+        <div v-show="isChoose">
+          <v-img
+            src="../assets/no.svg"
+            lazy-src="../assets/no.svg"
+            class="options option_1"
+            max-width="30vh"
+            max-height="30vh"
+            @click="handleClick(false)"
+            contain
+          ></v-img>
+          <v-img
+            src="../assets/yes.svg"
+            lazy-src="../assets/yes.svg"
+            class="options option_2"
+            max-width="30vh"
+            max-height="30vh"
+            @click="handleClick(true)"
+            contain
+          ></v-img></div
+      ></transition>
     </div>
-    <div style="font-size: 36px; margin-top: 10px; color: #fff">进入</div>
+    <div
+      style="font-size: 36px; margin-top: 10px; color: #fff"
+      v-show="!isChoose"
+    >
+      进入
+    </div>
+    <div
+      style="font-size: 36px; margin-top: 10px; color: #fff"
+      v-show="isChoose"
+    >
+      是否新生
+    </div>
   </div>
 </template>
 
@@ -97,9 +131,10 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class Home extends Vue {
-  isShow = false;
-  created() {
-    this.isShow = true;
+  isChoose = false;
+  handleClick(b: boolean) {
+    this.$store.commit("newOrOld", b);
+    this.$router.push("/one");
   }
 }
 </script>
@@ -232,5 +267,36 @@ export default class Home extends Vue {
   top: 33vh;
   left: auto;
   right: -2vh;
+}
+.opacity-leave-active {
+  opacity: 0;
+}
+.opacity-enter-active {
+  opacity: 0;
+}
+.option_1 {
+  z-index: 100;
+  top: 10%;
+  position: absolute;
+  left: 0vw;
+  animation: upanddown_1 5000ms infinite alternate;
+}
+.option_2 {
+  z-index: 100;
+  top: 50%;
+  position: absolute;
+  left: 40vw;
+  animation: upanddown_1 5000ms infinite alternate;
+}
+@keyframes upanddown_1 {
+  0% {
+    transform: scale(0.9) translateY(-60px);
+  }
+  50% {
+    transform: scale(0.9) translateY(0px);
+  }
+  100% {
+    transform: scale(0.9) translateY(-60px);
+  }
 }
 </style>

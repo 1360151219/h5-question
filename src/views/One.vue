@@ -1,6 +1,18 @@
 <template>
   <div>
     <div class="bg">
+      <!--  -->
+      <audio id="music" autoplay>
+        <source src="http://strk2.cn/music/nimanwoman.mp3" type="audio/mpeg" />
+      </audio>
+      <v-img
+        src="../assets/black_music.svg"
+        contain
+        height="6vh"
+        width="6vh"
+        class="music"
+        @click="musicToggle"
+      ></v-img>
       <v-img
         src="../assets/leaves1.svg"
         lazy-src="../assets/leaves1.svg"
@@ -35,35 +47,71 @@
       <!-- 题目 -->
       <template
         ><v-img
-          src="../assets/NEW1A.svg"
-          lazy-src="../assets/NEW1A.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1A.svg'
+              : 'http://www.strk2.cn:3000/problems/1A.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1A.svg'
+              : 'http://www.strk2.cn:3000/problems/1A.svg'
+          "
           class="options option_1"
-          @click="$router.push('/two')"
+          @click="clickToNext(1, 4, '/two')"
           max-width="30vh"
+          max-height="30vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW1B.svg"
-          lazy-src="../assets/NEW1B.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1B.svg'
+              : 'http://www.strk2.cn:3000/problems/1B.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1B.svg'
+              : 'http://www.strk2.cn:3000/problems/1B.svg'
+          "
           class="options option_2"
-          @click="$router.push('/two')"
+          @click="clickToNext(2, 5, '/two')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW1C.svg"
-          lazy-src="../assets/NEW1C.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1C.svg'
+              : 'http://www.strk2.cn:3000/problems/1C.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1C.svg'
+              : 'http://www.strk2.cn:3000/problems/1C.svg'
+          "
           class="options option_3"
-          @click="$router.push('/two')"
+          @click="clickToNext(3, 2, '/two')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW1D.svg"
-          lazy-src="../assets/NEW1D.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1D.svg'
+              : 'http://www.strk2.cn:3000/problems/1D.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW1D.svg'
+              : 'http://www.strk2.cn:3000/problems/1D.svg'
+          "
           class="options option_4"
-          @click="$router.push('/two')"
+          @click="clickToNext(1, 2, '/two')"
           max-width="35vh"
+          max-height="35vh"
           contain
         ></v-img>
       </template>
@@ -76,7 +124,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { component } from "vue/types/umd";
+import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
 @Component({
@@ -86,7 +134,28 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class One extends Vue {
-  pro = "初到华中大，你最想打卡哪里";
+  @Prop()
+  clickToNext!: (c: number, p: number, url: string) => void;
+  pro = "";
+  isNew!: boolean;
+  isPlay = false;
+  musicToggle() {
+    const music = document.getElementById("music");
+    if (music) {
+      if (this.isPlay) {
+        music.pause();
+      } else {
+        music.play();
+      }
+      this.isPlay = !this.isPlay;
+    }
+  }
+  created() {
+    this.isNew = this.$store.state.isNew;
+    this.pro = this.isNew
+      ? "初到华中大，你最想打卡哪里"
+      : "刚开学课程不是很多，在一个无所事事的晚上，你最想做什么呢？";
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -204,26 +273,29 @@ export default class One extends Vue {
 }
 .option_1 {
   position: absolute;
-  top: -15vh;
+  top: 7vh;
   left: 32vw;
   animation: upanddown_1 5000ms infinite alternate;
 }
 .option_2 {
   position: absolute;
-  top: -12vh;
+  top: 8vh;
   left: -5vw;
   animation: upanddown_2 3000ms infinite alternate;
 }
 .option_3 {
   position: absolute;
-  top: 13vh;
+  top: 40vh;
   left: 50vw;
   animation: upanddown_3 4000ms 200ms infinite alternate;
 }
 .option_4 {
   position: absolute;
-  top: 10vh;
+  top: 30vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
+}
+.music {
+  z-index: 100;
 }
 </style>

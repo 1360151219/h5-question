@@ -30,7 +30,7 @@ export default class Problem extends Vue {
       if (this.num === 1) return;
       this.$router.back();
       this.flag = true;
-    }, 2000);
+    }, 1000);
   }
 }
 </script>

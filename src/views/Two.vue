@@ -35,35 +35,71 @@
       <!-- 题目 -->
       <template
         ><v-img
-          src="../assets/NEW2A.svg"
-          lazy-src="../assets/NEW2A.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2A.svg'
+              : 'http://www.strk2.cn:3000/problems/2A.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2A.svg'
+              : 'http://www.strk2.cn:3000/problems/2A.svg'
+          "
           class="options option_1"
-          @click="$router.push('/three')"
+          @click="clickToNext(1, 0, '/three')"
           max-width="30vh"
+          max-height="30vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW2B.svg"
-          lazy-src="../assets/NEW2B.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2B.svg'
+              : 'http://www.strk2.cn:3000/problems/2B.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2B.svg'
+              : 'http://www.strk2.cn:3000/problems/2B.svg'
+          "
           class="options option_2"
-          @click="$router.push('/three')"
+          @click="clickToNext(4, 4, '/three')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW2C.svg"
-          lazy-src="../assets/NEW2C.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2C.svg'
+              : 'http://www.strk2.cn:3000/problems/2C.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2C.svg'
+              : 'http://www.strk2.cn:3000/problems/2C.svg'
+          "
           class="options option_3"
-          @click="$router.push('/three')"
+          @click="clickToNext(3, 3, '/three')"
           max-width="23vh"
+          max-height="23vh"
           contain
         ></v-img>
         <v-img
-          src="../assets/NEW2D.svg"
-          lazy-src="../assets/NEW2D.svg"
+          :src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2D.svg'
+              : 'http://www.strk2.cn:3000/problems/2D.svg'
+          "
+          :lazy-src="
+            isNew
+              ? 'http://www.strk2.cn:3000/problems/NEW2D.svg'
+              : 'http://www.strk2.cn:3000/problems/2D.svg'
+          "
           class="options option_4"
-          @click="$router.push('/three')"
+          @click="clickToNext(1, 2, '/three')"
           max-width="35vh"
+          max-height="35vh"
           contain
         ></v-img>
       </template>
@@ -76,7 +112,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { component } from "vue/types/umd";
+import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
 @Component({
@@ -86,7 +122,16 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class Two extends Vue {
-  pro = "上课第一天，早上的课终于上完了，你会选择什么美食作为第一顿午饭呢？";
+  @Prop()
+  clickToNext!: (c: number, p: number, url: string) => void;
+  isNew!: boolean;
+  pro = "";
+  created() {
+    this.isNew = this.$store.state.isNew;
+    this.pro = this.isNew
+      ? "上课第一天，早上的课终于上完了，你会选择什么美食作为第一顿午饭呢？"
+      : "周四下午公休，迎来了空闲时间，你想去干什么呢？";
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -204,25 +249,25 @@ export default class Two extends Vue {
 }
 .option_1 {
   position: absolute;
-  top: -15vh;
+  top: 7vh;
   left: 32vw;
   animation: upanddown_1 5000ms infinite alternate;
 }
 .option_2 {
   position: absolute;
-  top: -12vh;
+  top: 8vh;
   left: -5vw;
   animation: upanddown_2 3000ms infinite alternate;
 }
 .option_3 {
   position: absolute;
-  top: 13vh;
+  top: 40vh;
   left: 50vw;
   animation: upanddown_3 4000ms 200ms infinite alternate;
 }
 .option_4 {
   position: absolute;
-  top: 10vh;
+  top: 30vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
 }
