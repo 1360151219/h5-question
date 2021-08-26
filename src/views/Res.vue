@@ -310,9 +310,9 @@ export default class Res extends Vue {
     const music = document.getElementById("music");
     if (music) {
       if (this.isPlay) {
-        music.pause();
+        (music as HTMLAudioElement).pause();
       } else {
-        music.play();
+        (music as HTMLAudioElement).play();
       }
       this.isPlay = !this.isPlay;
     }
