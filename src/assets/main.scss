@@ -6,7 +6,6 @@
 html,
 body {
   background-color: rgb(75, 153, 117);
-  font-family: "Dotted";
   will-change: transform;
 
   overflow: hidden;
@@ -49,4 +48,23 @@ body {
   100% {
     transform: scale(1.1);
   }
+}
+@keyframes upAndDown {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-30px);
+  }
+}
+.tip {
+  position: absolute;
+  left: 50%;
+  animation: upAndDown 1s linear infinite alternate;
+  bottom: 0vh;
+  font-size: 23px;
+  font-weight: bolder;
+  opacity: 0.6;
+  font-style: italic;
+  letter-spacing: 1vw;
 }

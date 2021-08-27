@@ -1,9 +1,22 @@
 <template>
   <v-container>
+    <audio id="music" autoplay v-if="$route.fullPath !== '/res'">
+      <source src="http://strk2.cn/music/nimanwoman.mp3" type="audio/mpeg" />
+    </audio>
     <div id="app">
       <div class="title" v-show="$route.fullPath !== '/res'">
         震惊!你的华中大形象竟是...
       </div>
+      <v-img
+        src="./assets/black_music.svg"
+        contain
+        height="6vh"
+        width="6vh"
+        class="music"
+        style="top: 7vh; z-index: 100"
+        @click="musicToggle"
+        v-if="$route.fullPath !== '/res'"
+      ></v-img>
       <transition name="fade">
         <keep-alive>
           <router-view :clickToNext="clickToNext" :num="num" />
@@ -23,6 +36,18 @@ export default class App extends Vue {
     this.$store.commit("handleC", c);
     this.$store.commit("handleP", p);
     this.$router.push(url);
+  }
+  isPlay = false;
+  musicToggle() {
+    const music = document.getElementById("music") as HTMLVideoElement;
+    if (music) {
+      if (this.isPlay) {
+        music.pause();
+      } else {
+        music.play();
+      }
+      this.isPlay = !this.isPlay;
+    }
   }
   colors = [
     "#DCAC6D",

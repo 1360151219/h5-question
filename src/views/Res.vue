@@ -1,5 +1,8 @@
 <template>
-  <div class="poster_container">
+  <div class="poster_container" data-app="true">
+    <v-snackbar v-model="snackbar" centered v-if="snackbar">
+      正在生成海报，请稍等（亿会会）.....
+    </v-snackbar>
     <div class="header d-flex justify-space-between">
       <div>
         <v-img
@@ -68,7 +71,12 @@
           ></v-img>
         </v-img>
 
-        <div class="text">{{ description[c][p].detail }}</div>
+        <div class="text">
+          <span style="font-size: 30px">{{
+            description[c][p].detail.substr(0, 1)
+          }}</span
+          ><span>{{ description[c][p].detail.substr(1) }}</span>
+        </div>
         <audio id="music">
           <source
             src="http://strk2.cn/music/nimanwoman.mp3"
@@ -90,6 +98,15 @@
           height="8vh"
           width="8vh"
           class="share"
+          @click="toImg"
+        ></v-img>
+
+        <v-img
+          src="../assets/qrcode.png"
+          contain
+          height="13vh"
+          width="13vh"
+          class="qrcode"
         ></v-img>
       </div>
     </div>
@@ -99,6 +116,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import domtoimage from "dom-to-image";
+import html2canvas from "html2canvas";
+
 @Component({})
 export default class Res extends Vue {
   @Prop()
@@ -307,7 +327,7 @@ export default class Res extends Vue {
   p!: number;
   isPlay = false;
   musicToggle() {
-    const music = document.getElementById("music");
+    const music = document.getElementById("music") as HTMLVideoElement;
     if (music) {
       if (this.isPlay) {
         music.pause();
@@ -333,17 +353,47 @@ export default class Res extends Vue {
       month: date.getMonth() + 1,
       day: date.getDate(),
       hour: date.getHours(),
-      min: date.getMinutes(),
+      min: date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
     };
   }
   created() {
-    console.log(this.time);
+    // this.c = this.getMax(this.$store.state.characters);this.getMax(this.$store.state.places)
+    //31 34 40 41 42 43 44
     this.c = this.getMax(this.$store.state.characters);
     this.p = this.getMax(this.$store.state.places);
-
     this.character = `http://www.strk2.cn:3000/poster/${this.c}${this.p}.png`;
     this.character_bg = `http://www.strk2.cn:3000/poster/character_color${this.num}.svg`;
     this.character_title = `http://www.strk2.cn:3000/res_title/title_${this.c}${this.p}.png`;
+  }
+  mounted() {
+    setTimeout(() => {
+      console.log("timeout");
+      this.toImg();
+    }, 5000);
+  }
+  snackbar = true;
+  async toImg() {
+    this.snackbar = false;
+    const node = document.querySelector("body") as Node;
+    domtoimage
+      .toPng(node)
+      .then(async (dataUrl) => {
+        /* do something */
+        // this.imgSrc = dataUrl;
+        // console.log(dataUrl);
+        // this.dialog = true;
+        let img = new Image();
+        img.src = dataUrl;
+        document.body.innerHTML = "";
+        document.body.appendChild(img);
+        let div = document.createElement("div");
+        div.setAttribute("class", "tip");
+        div.innerHTML = "长按即可保存";
+        document.body.appendChild(div);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 }
 </script>
@@ -359,14 +409,14 @@ export default class Res extends Vue {
     transform: scale(1.7);
   }
   .cat {
-    transform: scale(1.4);
+    transform: scale(1.1);
     top: 8vh;
-    left: 2vw;
+    left: 0vw;
   }
   .character_logo {
     position: absolute;
     left: -17vw;
-    top: -10vh;
+    top: -9.5vh;
 
     transform: scale(0.4);
   }
@@ -391,15 +441,17 @@ export default class Res extends Vue {
     height: 13vh;
   }
   .time_date {
+    letter-spacing: 0.4vw;
     position: absolute;
     top: 5vh;
-    right: 53vw;
+    right: 52vw;
     font-size: 5vw;
   }
   .time_minutes {
+    letter-spacing: 0.9vw;
     position: absolute;
     top: 8vh;
-    right: 32vw;
+    right: 28vw;
     font-size: 6vw;
   }
 }
@@ -427,9 +479,9 @@ export default class Res extends Vue {
   font-family: auto;
   text-indent: 5vw;
 }
-.text::first-letter {
-  font-size: 8vw;
-}
+// .text::first-letter {
+//   font-size: 8vw;
+// }
 .result {
   font-size: 5vw;
   letter-spacing: 1vw;
@@ -437,6 +489,7 @@ export default class Res extends Vue {
   left: auto;
   right: 1vw;
   top: 22vh;
+  font-family: auto;
 }
 .test_title {
   position: absolute;
@@ -456,6 +509,16 @@ export default class Res extends Vue {
   left: auto;
   right: 2vw;
   top: 86vh;
+}
+.produce_img {
+  transform: translateX(-12vw) scale(0.7);
+  top: 10vw;
+  left: 66vw;
+}
+.qrcode {
+  left: auto;
+  right: 18vw;
+  top: 80vh;
 }
 .flex-item {
   flex: 1;

@@ -55,6 +55,7 @@ export default class Problem extends Vue {
   margin-left: 4px;
 }
 .problem {
+  font-family: "Dotted";
   flex: 14;
   font-size: 21px;
   color: #fff;
@@ -75,6 +76,7 @@ export default class Problem extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Dotted";
   img {
     width: 10vh;
   }
