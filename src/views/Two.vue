@@ -267,7 +267,7 @@ export default class Two extends Vue {
 }
 .option_4 {
   position: absolute;
-  top: 30vh;
+  top: 25vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
 }

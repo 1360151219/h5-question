@@ -2,17 +2,7 @@
   <div>
     <div class="bg">
       <!--  -->
-      <audio id="music" autoplay>
-        <source src="http://strk2.cn/music/nimanwoman.mp3" type="audio/mpeg" />
-      </audio>
-      <v-img
-        src="../assets/black_music.svg"
-        contain
-        height="6vh"
-        width="6vh"
-        class="music"
-        @click="musicToggle"
-      ></v-img>
+
       <v-img
         src="../assets/leaves1.svg"
         lazy-src="../assets/leaves1.svg"
@@ -183,8 +173,8 @@ export default class One extends Vue {
   animation: small 1.4s 500ms;
 }
 .boy {
-  left: -10vw !important;
-  bottom: -58vw !important;
+  left: -3vw !important;
+  bottom: -54vw !important;
   top: auto !important;
   transform: scale(0.6);
   z-index: 1;
@@ -291,7 +281,7 @@ export default class One extends Vue {
 }
 .option_4 {
   position: absolute;
-  top: 30vh;
+  top: 25vh;
   left: -10vw;
   animation: upanddown_4 8000ms infinite alternate;
 }
