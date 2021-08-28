@@ -105,13 +105,12 @@
       ></transition>
     </div>
     <div
-      style="font-size: 36px; margin-top: 10px; color: #fff;font-family='Dotted';"
-      v-show="!isChoose"
-    >
-      进入
-    </div>
-    <div
-      style="font-size: 36px; margin-top: 10px; color: #fff;font-family='Dotted';"
+      style="
+        font-size: 28px;
+        margin-top: 10px;
+        color: #fff;
+        font-family: 'Dotted';
+      "
       v-show="isChoose"
     >
       是否新生
