@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <audio id="music" autoplay v-if="$route.fullPath !== '/res'">
-      <source src="http://strk2.cn/music/nimanwoman.mp3" type="audio/mpeg" />
+    <audio id="music" autoplay>
+      <source src="http://strk2.cn/music/Calm.mp3" type="audio/mpeg" />
     </audio>
     <div id="app">
       <div class="title" v-show="$route.fullPath !== '/res'">
@@ -19,7 +19,11 @@
       ></v-img>
       <transition name="fade">
         <keep-alive>
-          <router-view :clickToNext="clickToNext" :num="num" />
+          <router-view
+            :clickToNext="clickToNext"
+            :num="num"
+            @music:change="musicToggle"
+          />
         </keep-alive>
       </transition>
     </div>

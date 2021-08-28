@@ -77,19 +77,14 @@
           }}</span
           ><span>{{ description[c][p].detail.substr(1) }}</span>
         </div>
-        <audio id="music">
-          <source
-            src="http://strk2.cn/music/nimanwoman.mp3"
-            type="audio/mpeg"
-          />
-        </audio>
+
         <v-img
           src="../assets/poster/music.svg"
           contain
           height="8vh"
           width="8vh"
           class="music"
-          @click="musicToggle"
+          @click="$emit('music:change')"
         ></v-img>
 
         <v-img
@@ -325,18 +320,7 @@ export default class Res extends Vue {
   ];
   c!: number;
   p!: number;
-  isPlay = false;
-  musicToggle() {
-    const music = document.getElementById("music") as HTMLVideoElement;
-    if (music) {
-      if (this.isPlay) {
-        (music as HTMLAudioElement).pause();
-      } else {
-        (music as HTMLAudioElement).play();
-      }
-      this.isPlay = !this.isPlay;
-    }
-  }
+
   getMax(arr: Array<number>): number {
     let max = 0;
     let index = 0;
