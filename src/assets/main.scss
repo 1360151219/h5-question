@@ -57,14 +57,15 @@ body {
     transform: translateX(-50%) translateY(-30px);
   }
 }
-.tip {
+.tip_save {
   position: absolute;
   left: 50%;
   animation: upAndDown 1s linear infinite alternate;
-  bottom: 0vh;
+  bottom: 6vh;
   font-size: 23px;
   font-weight: bolder;
   opacity: 0.6;
   font-style: italic;
   letter-spacing: 1vw;
+  white-space: nowrap;
 }

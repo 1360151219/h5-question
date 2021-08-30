@@ -33,7 +33,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
-@Component({})
+@Component
 export default class App extends Vue {
   isShow = false;
   clickToNext(c: number, p: number, url: string) {

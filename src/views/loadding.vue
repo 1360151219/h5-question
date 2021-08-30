@@ -11,6 +11,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-@Component({})
+@Component
 export default class Loadding extends Vue {}
 </script>

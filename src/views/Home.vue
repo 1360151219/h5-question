@@ -245,23 +245,23 @@ export default class Home extends Vue {
   }
 }
 .leaves_left_back {
-  animation: slide-left-in 3s 2s;
+  animation: slide-left-in 3s 9s;
   pointer-events: none;
   top: 12vh;
 }
 .leaves_left_front {
-  animation: slide-left-in 3s 2s;
+  animation: slide-left-in 3s 9s;
   pointer-events: none;
   top: 31vh;
 }
 .leaves_right_back {
-  animation: slide-right-in 3s 2s;
+  animation: slide-right-in 3s 9s;
   pointer-events: none;
   top: 6vh;
   left: 7vh;
 }
 .leaves_right_front {
-  animation: slide-right-in 3s 2s;
+  animation: slide-right-in 3s 9s;
   pointer-events: none;
   top: 33vh;
   left: auto;
