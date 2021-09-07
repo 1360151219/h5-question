@@ -1,26 +1,11 @@
 <template>
   <div class="poster_container" data-app="true">
-    <v-img
+    <img
       :src="`http://strk2.cn/poster/${this.c}${this.p}.png`"
       :class="styleAdjust"
-      height="97vh"
-      width="100vw"
-      contain
       class="poster_img"
-    >
-      <template v-slot:placeholder>
-        <v-row
-          class="fill-height ma-0 circular"
-          align="center"
-          justify="center"
-        >
-          <v-progress-circular
-            indeterminate
-            color="grey lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
-    </v-img>
+    />
+
     <!-- <v-snackbar v-model="snackbar" centered v-if="snackbar">
       正在生成海报，请稍等（亿会会）.....
     </v-snackbar>
@@ -126,7 +111,7 @@
         ></v-img>
       </div>
     </div> -->
-    <div class="tip_save">长按图片即可保存</div>
+    <div class="tip_save">长按即可保存</div>
   </div>
 </template>
 <script lang="ts">
@@ -152,8 +137,10 @@ export default class Res extends Vue {
   created() {
     // this.c = this.getMax(this.$store.state.characters);this.getMax(this.$store.state.places)
     //01 02
-    this.c = this.getMax(this.$store.state.characters);
-    this.p = this.getMax(this.$store.state.places);
+    // this.c = this.getMax(this.$store.state.characters);
+    // this.p = this.getMax(this.$store.state.places);
+    this.c = 3;
+    this.p = 4;
   }
   get styleAdjust() {
     if (this.arr1.includes(`${this.c}${this.p}`)) {
@@ -168,9 +155,14 @@ export default class Res extends Vue {
 </script>
 <style lang="scss">
 .poster_img {
+  height: 101vh;
+  width: 100vw;
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%) scale(1.08);
+  transform: translateX(-50%) scale(1);
+  top: -2vh;
 }
+
 .poster_container {
   height: 100vh;
 }
@@ -199,10 +191,12 @@ export default class Res extends Vue {
   left: 60%;
 }
 .handlePos {
-  transform: translateX(-52%) scale(1.12) !important;
+  transform: translateX(-52%) scale(1) !important;
+  width: 104vw;
 }
 .handlePosTwo {
-  transform: translateX(-63%) scale(1.32) !important;
+  transform: translateX(-50%) !important;
+  width: 100vw;
 }
 .time {
   left: 31vw;
