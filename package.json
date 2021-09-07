@@ -1,5 +1,6 @@
 {
-  "name": "h5-question",
+  "title":"震惊!你的华中大形象竟是...",
+  "description": "快来测一测你的华中大形象吧！！！",
   "version": "0.1.0",
   "private": true,
   "scripts": {

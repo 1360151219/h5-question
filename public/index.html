@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="referrer" content="no-referrer" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>震惊!你的华中大形象竟是...</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
@@ -70,7 +70,7 @@
       }
       #logo {
         position: absolute;
-        bottom: 100px;
+        bottom: 160px;
         left: 50%;
         transform: translateX(-50%);
       }
@@ -83,12 +83,33 @@
         z-index: 1000;
         background-color: rgb(75, 153, 117);
       }
+      #loading_txt {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 22vw;
+        white-space: nowrap;
+        letter-spacing: 0.6vw;
+        color: #fff;
+        font-style: italic;
+      }
+      #loading_tip {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 4vw;
+        white-space: nowrap;
+        color: #fff;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
     <div id="load_wrap">
       <div id="Loading"></div>
       <img id="logo" src="./pivotStudio_logo.svg" />
+      <div id="loading_tip">前方有音乐，注意调整音量~~</div>
+      <div id="loading_txt">Pivot Studio 提供技术支持</div>
     </div>
     <div id="app"></div>
     <!-- built files will be auto injected -->

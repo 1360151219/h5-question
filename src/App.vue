@@ -81,8 +81,9 @@ export default class App extends Vue {
   }
   mounted() {
     const loading = document.getElementById("load_wrap");
+   
     setTimeout(() => {
-      if (loading) loading.remove();
+       if (loading) loading.remove();
       const music = document.getElementById("music") as HTMLVideoElement;
       if (music.paused) {
         this.musicToggle();

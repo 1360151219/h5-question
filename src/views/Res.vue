@@ -1,11 +1,26 @@
 <template>
   <div class="poster_container" data-app="true">
     <v-img
-      src="../assets/poster/poster.png"
-      height="100vh"
+      :src="`http://strk2.cn/poster/${this.c}${this.p}.png`"
+      :class="styleAdjust"
+      height="97vh"
+      width="100vw"
       contain
       class="poster_img"
-    ></v-img>
+    >
+      <template v-slot:placeholder>
+        <v-row
+          class="fill-height ma-0 circular"
+          align="center"
+          justify="center"
+        >
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-5"
+          ></v-progress-circular>
+        </v-row>
+      </template>
+    </v-img>
     <!-- <v-snackbar v-model="snackbar" centered v-if="snackbar">
       正在生成海报，请稍等（亿会会）.....
     </v-snackbar>
@@ -117,7 +132,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Prop } from "vue-property-decorator";
 @Component
 export default class Res extends Vue {
   c!: number;
@@ -132,18 +146,30 @@ export default class Res extends Vue {
     }
     return index;
   }
+  /* 图片调整 */
+  arr1 = ["52", "51"];
+  arr2 = ["01", "03"];
   created() {
     // this.c = this.getMax(this.$store.state.characters);this.getMax(this.$store.state.places)
-    //31 34 40 41 42 43 44
+    //01 02
     this.c = this.getMax(this.$store.state.characters);
     this.p = this.getMax(this.$store.state.places);
   }
+  get styleAdjust() {
+    if (this.arr1.includes(`${this.c}${this.p}`)) {
+      return "handlePos";
+    } else if (this.arr2.includes(`${this.c}${this.p}`)) {
+      return "handlePosTwo";
+    } else {
+      return "";
+    }
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .poster_img {
   left: 50%;
-  transform: translateX(-62%) scale(1.33);
+  transform: translateX(-50%) scale(1.08);
 }
 .poster_container {
   height: 100vh;
@@ -167,6 +193,16 @@ export default class Res extends Vue {
 
     transform: scale(0.4);
   }
+}
+.v-image__placeholder {
+  top: 50%;
+  left: 60%;
+}
+.handlePos {
+  transform: translateX(-52%) scale(1.12) !important;
+}
+.handlePosTwo {
+  transform: translateX(-63%) scale(1.32) !important;
 }
 .time {
   left: 31vw;
