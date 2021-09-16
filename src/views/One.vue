@@ -3,16 +3,8 @@
     <div class="bg">
       <!--  -->
 
-      <v-img
-        src="../assets/leaves1.svg"
-        lazy-src="../assets/leaves1.svg"
-        class="zindex-10"
-      ></v-img>
-      <v-img
-        src="../assets/leaves2.svg"
-        lazy-src="../assets/leaves2.svg"
-        class="leaves"
-      ></v-img>
+      <v-img :src="leave1" :lazy-src="leave1" class="zindex-10"></v-img>
+      <v-img :src="leave2" :lazy-src="leave2" class="leaves"></v-img>
       <v-img
         src="../assets/boy_standing.svg"
         lazy-src="../assets/boy_standing.svg"
@@ -39,16 +31,16 @@
         ><v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1A.svg'
-              : 'http://www.strk2.cn:3000/problems/1A.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1A.png'
+              : 'http://www.strk2.cn:3000/problems/1A.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1A.svg'
-              : 'http://www.strk2.cn:3000/problems/1A.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1A.png'
+              : 'http://www.strk2.cn:3000/problems/1A.png'
           "
           class="options option_1"
-          @click="clickToNext(1, 4, '/two')"
+          @click="clickToNext(1, 4, '/two', 1.323)"
           max-width="30vh"
           max-height="30vh"
           contain
@@ -56,16 +48,16 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1B.svg'
-              : 'http://www.strk2.cn:3000/problems/1B.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1B.png'
+              : 'http://www.strk2.cn:3000/problems/1B.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1B.svg'
-              : 'http://www.strk2.cn:3000/problems/1B.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1B.png'
+              : 'http://www.strk2.cn:3000/problems/1B.png'
           "
           class="options option_2"
-          @click="clickToNext(2, 5, '/two')"
+          @click="clickToNext(2, 5, '/two', 1.323)"
           max-width="23vh"
           max-height="23vh"
           contain
@@ -73,16 +65,16 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1C.svg'
-              : 'http://www.strk2.cn:3000/problems/1C.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1C.png'
+              : 'http://www.strk2.cn:3000/problems/1C.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1C.svg'
-              : 'http://www.strk2.cn:3000/problems/1C.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1C.png'
+              : 'http://www.strk2.cn:3000/problems/1C.png'
           "
           class="options option_3"
-          @click="clickToNext(3, 2, '/two')"
+          @click="clickToNext(3, 2, '/two', 1.323)"
           max-width="23vh"
           max-height="23vh"
           contain
@@ -90,16 +82,16 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1D.svg'
-              : 'http://www.strk2.cn:3000/problems/1D.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1D.png'
+              : 'http://www.strk2.cn:3000/problems/1D.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW1D.svg'
-              : 'http://www.strk2.cn:3000/problems/1D.svg'
+              ? 'http://www.strk2.cn:3000/problems/NEW1D.png'
+              : 'http://www.strk2.cn:3000/problems/1D.png'
           "
           class="options option_4"
-          @click="clickToNext(1, 2, '/two')"
+          @click="clickToNext(1, 2, '/two', 1.323)"
           max-width="35vh"
           max-height="35vh"
           contain
@@ -125,9 +117,15 @@ import Problem from "../components/problems.vue";
 })
 export default class One extends Vue {
   @Prop()
-  clickToNext!: (c: number, p: number, url: string) => void;
-  pro = "";
+  clickToNext!: (c: number, p: number, url: string, point: number) => void;
+  @Prop()
   isNew!: boolean;
+  @Prop()
+  leave1!: string;
+  @Prop()
+  leave2!: string;
+  pro = "";
+
   isPlay = false;
   musicToggle() {
     const music = document.getElementById("music");
@@ -141,9 +139,8 @@ export default class One extends Vue {
     }
   }
   created() {
-    this.isNew = this.$store.state.isNew;
     this.pro = this.isNew
-      ? "初到华中大，你最想打卡哪里"
+      ? "http://strk2.cn/problems/new/new-one.png"
       : "刚开学课程不是很多，在一个无所事事的晚上，你最想做什么呢？";
   }
 }
@@ -170,7 +167,6 @@ export default class One extends Vue {
   height: 100% !important;
   pointer-events: none;
   transform: scale(1.1);
-  animation: small 1.4s 500ms;
 }
 .boy {
   left: -3vw !important;
@@ -271,19 +267,19 @@ export default class One extends Vue {
   position: absolute;
   top: 8vh;
   left: -5vw;
-  animation: upanddown_2 3000ms infinite alternate;
+  animation: upanddown_2 6000ms infinite alternate;
 }
 .option_3 {
   position: absolute;
   top: 40vh;
   left: 50vw;
-  animation: upanddown_3 4000ms 200ms infinite alternate;
+  animation: upanddown_3 6000ms 200ms infinite alternate;
 }
 .option_4 {
   position: absolute;
   top: 25vh;
   left: -10vw;
-  animation: upanddown_4 8000ms infinite alternate;
+  animation: upanddown_4 10000ms infinite alternate;
 }
 .music {
   z-index: 100;

@@ -1,16 +1,8 @@
 <template>
   <div>
     <div class="bg">
-      <v-img
-        src="../assets/leaves1.svg"
-        lazy-src="../assets/leaves1.svg"
-        class="zindex-10"
-      ></v-img>
-      <v-img
-        src="../assets/leaves2.svg"
-        lazy-src="../assets/leaves2.svg"
-        class="leaves zindex-10"
-      ></v-img>
+      <v-img :src="leave1" :lazy-src="leave1" class="zindex-10"></v-img>
+      <v-img :src="leave2" :lazy-src="leave2" class="leaves"></v-img>
       <v-img
         src="../assets/light2.svg"
         lazy-src="../assets/light2.svg"
@@ -65,7 +57,7 @@
       </v-img>
       <!-- 开始 -->
       <transition name="opacity">
-        <div v-show="!isChoose">
+        <div v-show="!isChoose && !isGender">
           <v-img
             src="http://strk2.cn:3000/img/start.8ee8bdba.svg"
             lazy-src="../assets/start.svg"
@@ -76,9 +68,29 @@
             src="../assets/start_btn.svg"
             lazy-src="../assets/start_btn.svg"
             contain
-            max-width="23vh"
+            max-width="16vh"
             class="start_btn"
             @click="isChoose = true"
+          ></v-img></div
+      ></transition>
+      <!-- 选择性别 -->
+      <transition name="opacity">
+        <div v-show="isGender">
+          <v-img
+            src="../assets/female.png"
+            class="options option_1"
+            max-width="30vh"
+            max-height="30vh"
+            @click="chooseGender(false)"
+            contain
+          ></v-img>
+          <v-img
+            src="../assets/male.png"
+            class="options option_2"
+            max-width="30vh"
+            max-height="30vh"
+            @click="chooseGender(true)"
+            contain
           ></v-img></div
       ></transition>
       <!-- 选择新老生 -->
@@ -104,17 +116,22 @@
           ></v-img></div
       ></transition>
     </div>
-    <div
-      style="
-        font-size: 28px;
-        margin-top: 10px;
-        color: #fff;
-        font-family: 'Dotted';
-      "
-      v-show="isChoose"
-    >
-      是否新生
-    </div>
+    <transition name="opacity">
+      <div v-show="isChoose">
+        <v-img
+          src="http://strk2.cn/problems/isFreshman.png"
+          style="height: 5vh; top: auto; bottom: -6vh"
+        ></v-img>
+      </div>
+    </transition>
+    <transition name="opacity">
+      <div v-show="isGender">
+        <v-img
+          src="http://strk2.cn/problems/genderChoose.png"
+          style="height: 5vh; top: auto; bottom: -6vh"
+        ></v-img>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -123,6 +140,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
+import { Prop } from "vue-property-decorator";
 @Component({
   components: {
     Stairs,
@@ -130,9 +148,19 @@ import Problem from "../components/problems.vue";
   },
 })
 export default class Home extends Vue {
+  @Prop()
+  leave1!: string;
+  @Prop()
+  leave2!: string;
   isChoose = false;
   handleClick(b: boolean) {
-    this.$store.commit("newOrOld", b);
+    this.$emit("newOrOld", b);
+    this.isGender = true;
+    this.isChoose = false;
+  }
+  isGender = false;
+  chooseGender(b: boolean) {
+    this.$emit("genderChoose", b);
     this.$router.push("/one");
   }
 }
@@ -175,19 +203,10 @@ export default class Home extends Vue {
   transform: translateX(-50%);
   z-index: 10;
 }
-@keyframes a {
-  0% {
-    transform: scale(1.4);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 .leaves {
   top: -2vh !important;
   height: 110% !important;
   pointer-events: none;
-  animation: a 1.4s 2s;
 }
 .light_1 {
   z-index: 100;
@@ -245,23 +264,23 @@ export default class Home extends Vue {
   }
 }
 .leaves_left_back {
-  animation: slide-left-in 3s 9s;
+  animation: slide-left-in 3s 4s;
   pointer-events: none;
   top: 12vh;
 }
 .leaves_left_front {
-  animation: slide-left-in 3s 9s;
+  animation: slide-left-in 3s 4s;
   pointer-events: none;
   top: 31vh;
 }
 .leaves_right_back {
-  animation: slide-right-in 3s 9s;
+  animation: slide-right-in 3s 4s;
   pointer-events: none;
   top: 6vh;
   left: 7vh;
 }
 .leaves_right_front {
-  animation: slide-right-in 3s 9s;
+  animation: slide-right-in 3s 4s;
   pointer-events: none;
   top: 33vh;
   left: auto;

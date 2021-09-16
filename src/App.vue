@@ -22,7 +22,15 @@
           <router-view
             :clickToNext="clickToNext"
             :num="num"
+            :isNew="isNew"
+            :isMale="isMale"
+            :c="characters"
+            :p="places"
+            :leave1="leave1"
+            :leave2="leave2"
             @music:change="musicToggle"
+            @newOrOld="newOrOld"
+            @genderChoose="genderChoose"
           />
         </keep-alive>
       </transition>
@@ -36,11 +44,18 @@ import { Watch } from "vue-property-decorator";
 @Component
 export default class App extends Vue {
   isShow = false;
-  clickToNext(c: number, p: number, url: string) {
-    this.$store.commit("handleC", c);
-    this.$store.commit("handleP", p);
-    this.$router.push(url);
+  timer = -1;
+  clickToNext(c: number, p: number, url: string, point: number) {
+    console.log(this.timer);
+    if (this.timer !== -1) clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.characters[c] += point;
+      this.places[p] += point;
+      this.$router.push(url);
+      this.timer = -1;
+    }, 600);
   }
+
   isPlay = false;
   musicToggle() {
     const music = document.getElementById("music") as HTMLVideoElement;
@@ -53,22 +68,36 @@ export default class App extends Vue {
       this.isPlay = !this.isPlay;
     }
   }
-  colors = [
-    "#DCAC6D",
-    "#ACC2D2",
-    "#CF948E",
-    "#9AB7A4",
-    "#D6C8D3",
-    "#A7A4A1",
-    "#AE9E8E",
-    "#ACB484",
-    "#5EC0B8",
-    "#ECB7C0",
-    "#5A8AC8",
-    "#3E8C75",
-    "#60B3E5",
-    "#6EAF89",
-  ];
+  /* 数据啊啊啊 */
+  isNew = false;
+  isMale = false;
+  characters = [0, 0, 0, 0, 0, 0];
+  places = [0, 0, 0, 0, 0, 0];
+  //幼儿园园长 吃货 刷夜人 宝藏男孩 小甜甜 大橘
+  // 韵酒 喻家山 东九  梧桐语  集贸  科技楼
+
+  newOrOld(b: boolean) {
+    this.isNew = b;
+  }
+  genderChoose(b: boolean) {
+    this.isMale = b;
+  }
+  // colors = [
+  //   "#DCAC6D",
+  //   "#ACC2D2",
+  //   "#CF948E",
+  //   "#9AB7A4",
+  //   "#D6C8D3",
+  //   "#A7A4A1",
+  //   "#AE9E8E",
+  //   "#ACB484",
+  //   "#5EC0B8",
+  //   "#ECB7C0",
+  //   "#5A8AC8",
+  //   "#3E8C75",
+  //   "#60B3E5",
+  //   "#6EAF89",
+  // ];
   get randomNum() {
     return Math.ceil(Math.random() * 14);
   }
@@ -77,18 +106,34 @@ export default class App extends Vue {
   routeChange() {
     this.num = this.randomNum;
     if (this.$route.fullPath === "/res")
-      document.body.style.backgroundColor = this.colors[this.num - 1];
+      document.body.style.backgroundColor = "#ffffff";
+    else {
+      document.body.style.backgroundColor = "rgb(75, 153, 117)";
+    }
   }
-  mounted() {
+  leave1 = "";
+  leave2 = "";
+  created() {
     const loading = document.getElementById("load_wrap");
-   
+    var newImg = new Image();
+    newImg.src = `http://strk2.cn:3000/hust_img/leaves1.svg`;
+    newImg.onload = () => {
+      // 图片加载成功后把地址给原来的img
+      this.leave1 = newImg.src;
+    };
+    var newImg2 = new Image();
+    newImg2.src = `http://strk2.cn:3000/hust_img/leaves2.svg`;
+    newImg2.onload = () => {
+      // 图片加载成功后把地址给原来的img
+      this.leave2 = newImg2.src;
+    };
     setTimeout(() => {
-       if (loading) loading.remove();
+      if (loading) loading.remove();
       const music = document.getElementById("music") as HTMLVideoElement;
       if (music.paused) {
         this.musicToggle();
       }
-    }, 10000);
+    }, 5000);
   }
 }
 </script>
@@ -110,7 +155,7 @@ export default class App extends Vue {
 }
 .fade-enter-active {
   will-change: transform;
-  animation: blur 2000ms ease reverse;
+  animation: blur 4000ms ease reverse;
 }
 .fade-leave-active {
   will-change: transform;

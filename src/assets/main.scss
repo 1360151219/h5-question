@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "Dotted";
-  src: url("./font/font.otf") format("opentype");
-}
-
 html,
 body {
   background-color: rgb(75, 153, 117);
@@ -10,9 +5,7 @@ body {
 
   overflow: hidden;
 }
-#loading_tip {
-  font-family: "Dotted";
-}
+
 .container {
   height: 100%;
 }

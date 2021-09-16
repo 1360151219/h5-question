@@ -1,11 +1,15 @@
 <template>
   <div class="poster_container" data-app="true">
-    <img
-      :src="`http://strk2.cn/poster/${this.c}${this.p}.png`"
-      :class="styleAdjust"
-      class="poster_img"
-    />
-
+    <img :src="url" class="poster_img" :class="loading ? 'loading_img' : ''" />
+    <v-img
+      src="../assets/music.svg"
+      contain
+      height="6vh"
+      width="6vh"
+      class="music"
+      style="top: 27vh; z-index: 100"
+      @click="$emit('music:change')"
+    ></v-img>
     <!-- <v-snackbar v-model="snackbar" centered v-if="snackbar">
       正在生成海报，请稍等（亿会会）.....
     </v-snackbar>
@@ -117,53 +121,60 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 @Component
 export default class Res extends Vue {
-  c!: number;
-  p!: number;
+  @Prop()
+  c!: number[];
+  @Prop()
+  p!: number[];
+  @Prop()
+  isMale!: boolean;
   getMax(arr: Array<number>): number {
     let max = 0;
     let index = 0;
     for (let i = 0; i < arr.length; i++) {
       if (max < arr[i]) {
+        max = arr[i];
         index = i;
       }
     }
     return index;
   }
-  /* 图片调整 */
-  arr1 = ["52", "51"];
-  arr2 = ["01", "03"];
+  url =
+    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F014f6d5b930faaa8012017eea7c831.gif&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634101205&t=6c3181c90d921eee51592e962698bcfa";
+  loading = true;
   created() {
-    // this.c = this.getMax(this.$store.state.characters);this.getMax(this.$store.state.places)
-    //01 02
-    // this.c = this.getMax(this.$store.state.characters);
-    // this.p = this.getMax(this.$store.state.places);
-    this.c = 3;
-    this.p = 4;
-  }
-  get styleAdjust() {
-    if (this.arr1.includes(`${this.c}${this.p}`)) {
-      return "handlePos";
-    } else if (this.arr2.includes(`${this.c}${this.p}`)) {
-      return "handlePosTwo";
-    } else {
-      return "";
+    console.log(this.c);
+    let cMax = this.getMax(this.c);
+    let pMax = this.getMax(this.p);
+    let gender = this.isMale ? "0" : "1";
+    if (cMax === 5) {
+      gender = "";
     }
+    var newImg = new Image();
+    newImg.src = `http://strk2.cn/poster/${cMax}${pMax}${gender}.jpg`;
+    newImg.onload = () => {
+      // 图片加载成功后把地址给原来的img
+      this.url = newImg.src;
+      this.loading = false;
+    };
   }
 }
 </script>
 <style lang="scss">
 .poster_img {
-  height: 101vh;
   width: 100vw;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  top: -2vh;
+  transition: 0.3s all;
+  transform: translateY(-0.8vh) scaleY(0.88);
 }
-
+.loading_img {
+  width: 100vw;
+}
 .poster_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 .character_bg {
@@ -278,7 +289,7 @@ export default class Res extends Vue {
 .music {
   position: absolute;
   left: auto;
-  right: 2vw;
+  right: 50vw;
   top: 78vh;
 }
 .share {

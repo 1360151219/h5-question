@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="num">{{ num }}</div>
-    <div class="problem">{{ problem }}</div>
+    <div class="problem">
+      <v-img :src="problem" height="10vh" style="top: 1vh"></v-img>
+    </div>
     <div class="btn" @click="goback">
       <img src="../assets/goback.svg" />
       <span>上一题</span>
@@ -55,9 +57,8 @@ export default class Problem extends Vue {
   margin-left: 4px;
 }
 .problem {
-  font-family: "Dotted";
   flex: 14;
-  font-size: 21px;
+  font-size: 16px;
   color: #fff;
   z-index: 100;
   align-self: center;
@@ -76,7 +77,6 @@ export default class Problem extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Dotted";
   img {
     width: 10vh;
   }
