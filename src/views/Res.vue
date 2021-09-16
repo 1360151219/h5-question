@@ -155,7 +155,7 @@ export default class Res extends Vue {
       gender = "";
     }
     var newImg = new Image();
-    newImg.src = `http://strk2.cn/poster/${cMax}${pMax}${gender}.jpg`;
+    newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/poster/${cMax}${pMax}${gender}.jpg`;
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
       this.url = newImg.src;
