@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><link rel="icon" href="/favicon.ico"><title>震惊!你的华中大形象竟是...</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"><style type="text/css">* {
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      #Loading {
+        width: 100px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid #333;
+        box-shadow: 0 0 0 2px white, inset 0 0 10px white;
+        background: #3498db;
+        border-radius: 5px;
+        overflow: hidden;
+        will-change: transform;
+      }
+      #Loading::before,
+      #Loading::after {
+        width: 600px;
+        height: 600px;
+        left: 50%;
+        top: -50%;
+        transform: translate(-50%, -50%);
+        content: "";
+        position: absolute;
+      }
+      #Loading::after {
+        border-radius: 40%;
+        background-color: rgba(51, 51, 51, 0.5);
+        animation: roll 8s linear, fill 10s linear;
+      }
+      #Loading::before {
+        border-radius: 47%;
+        background-color: rgba(51, 51, 51, 1);
+        animation: roll 10s linear, fill 10s linear;
+      }
+      @keyframes roll {
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      @keyframes fill {
+        50% {
+          width: 100px;
+          height: 100px;
+        }
+      }
+      #logo {
+        position: absolute;
+        bottom: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #load_wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgb(75, 153, 117);
+      }
+      #loading_txt {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 22vw;
+        white-space: nowrap;
+        letter-spacing: 0.6vw;
+        color: #fff;
+        font-style: italic;
+      }
+      #loading_tip {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 4vw;
+        white-space: nowrap;
+        color: #fff;
+        font-size: 14px;
+      }</style><link href="/css/chunk-3255dfd7.9855052f.css" rel="prefetch"><link href="/js/chunk-3255dfd7.57febe22.js" rel="prefetch"><link href="/css/app.448e45f4.css" rel="preload" as="style"><link href="/css/chunk-vendors.82b2b3d3.css" rel="preload" as="style"><link href="/js/app.8be90c47.js" rel="preload" as="script"><link href="/js/chunk-vendors.69bc19ce.js" rel="preload" as="script"><link href="/css/chunk-vendors.82b2b3d3.css" rel="stylesheet"><link href="/css/app.448e45f4.css" rel="stylesheet"></head><body><div id="load_wrap"><div id="Loading"></div><img id="logo" src="./pivotStudio_logo.svg"><div id="loading_tip">前方有音乐，注意调整音量~~</div><div id="loading_txt">Pivot Studio 提供技术支持</div></div><div id="app"></div><script src="/js/chunk-vendors.69bc19ce.js"></script><script src="/js/app.8be90c47.js"></script></body></html>
