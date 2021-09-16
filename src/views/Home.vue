@@ -59,7 +59,7 @@
       <transition name="opacity">
         <div v-show="!isChoose && !isGender">
           <v-img
-            src="http://strk2.cn:3000/img/start.8ee8bdba.svg"
+            src="../assets/start.svg"
             lazy-src="../assets/start.svg"
             contain
             class="zindex-10 start"
@@ -119,7 +119,7 @@
     <transition name="opacity">
       <div v-show="isChoose">
         <v-img
-          src="http://strk2.cn/problems/isFreshman.png"
+          src="https://static2.pivotstudio.cn/2021-h5-questions/problems/isFreshman.png"
           style="height: 5vh; top: auto; bottom: -6vh"
         ></v-img>
       </div>
@@ -127,7 +127,7 @@
     <transition name="opacity">
       <div v-show="isGender">
         <v-img
-          src="http://strk2.cn/problems/genderChoose.png"
+          src="https://static2.pivotstudio.cn/2021-h5-questions/genderChoose.png"
           style="height: 5vh; top: auto; bottom: -6vh"
         ></v-img>
       </div>

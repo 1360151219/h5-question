@@ -116,13 +116,13 @@ export default class App extends Vue {
   created() {
     const loading = document.getElementById("load_wrap");
     var newImg = new Image();
-    newImg.src = `http://strk2.cn:3000/hust_img/leaves1.svg`;
+    newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/hust_img/leaves1.svg`;
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
       this.leave1 = newImg.src;
     };
     var newImg2 = new Image();
-    newImg2.src = `http://strk2.cn:3000/hust_img/leaves2.svg`;
+    newImg2.src = `https://static2.pivotstudio.cn/2021-h5-questions/hust_img/leaves2.svg`;
     newImg2.onload = () => {
       // 图片加载成功后把地址给原来的img
       this.leave2 = newImg2.src;

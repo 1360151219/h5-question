@@ -30,13 +30,13 @@
         ><v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5A.png'
-              : 'http://www.strk2.cn:3000/problems/5A.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5A.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5A.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5A.png'
-              : 'http://www.strk2.cn:3000/problems/5A.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5A.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5A.png'
           "
           class="options option_1"
           @click="clickToNext(2, 5, '/six', 1.628)"
@@ -47,13 +47,13 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5B.png'
-              : 'http://www.strk2.cn:3000/problems/5B.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5B.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5B.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5B.png'
-              : 'http://www.strk2.cn:3000/problems/5B.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5B.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5B.png'
           "
           class="options option_2"
           @click="clickToNext(3, 1, '/six', 1.628)"
@@ -64,13 +64,13 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5C.png'
-              : 'http://www.strk2.cn:3000/problems/5C.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5C.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5C.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5C.png'
-              : 'http://www.strk2.cn:3000/problems/5C.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5C.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5C.png'
           "
           class="options option_3"
           @click="clickToNext(0, 4, '/six', 1.628)"
@@ -81,13 +81,13 @@
         <v-img
           :src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5D.png'
-              : 'http://www.strk2.cn:3000/problems/5D.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5D.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5D.png'
           "
           :lazy-src="
             isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5D.png'
-              : 'http://www.strk2.cn:3000/problems/5D.png'
+              ? 'https://static2.pivotstudio.cn/2021-h5-questions/problems/NEW5D.png'
+              : 'https://static2.pivotstudio.cn/2021-h5-questions/problems/5D.png'
           "
           class="options option_4"
           @click="clickToNext(4, 3, '/six', 1.628)"
@@ -126,8 +126,8 @@ export default class Five extends Vue {
   leave2!: string;
   created() {
     this.pro = this.isNew
-      ? "http://strk2.cn/problems/new/new-five.png"
-      : "http://strk2.cn/problems/old/old-five.png";
+      ? "https://static2.pivotstudio.cn/2021-h5-questions/problems/new/new-five.png"
+      : "https://static2.pivotstudio.cn/2021-h5-questions/problems/old/old-five.png";
   }
 }
 </script>
