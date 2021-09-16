@@ -9,6 +9,7 @@
       class="music"
       style="top: 27vh; z-index: 100"
       @click="$emit('music:change')"
+      v-show="!loading"
     ></v-img>
     <!-- <v-snackbar v-model="snackbar" centered v-if="snackbar">
       正在生成海报，请稍等（亿会会）.....
@@ -144,6 +145,7 @@ export default class Res extends Vue {
   url =
     "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F014f6d5b930faaa8012017eea7c831.gif&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634101205&t=6c3181c90d921eee51592e962698bcfa";
   loading = true;
+
   created() {
     console.log(this.c);
     let cMax = this.getMax(this.c);

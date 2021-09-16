@@ -2,7 +2,7 @@
   <div class="container">
     <div class="num">{{ num }}</div>
     <div class="problem">
-      <v-img :src="problem" height="10vh" style="top: 1vh"></v-img>
+      <v-img :src="problem" height="9.7vh" style="top: 1vh"></v-img>
     </div>
     <div class="btn" @click="goback">
       <img src="../assets/goback.svg" />

@@ -141,7 +141,7 @@ export default class One extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-one.png"
-      : "刚开学课程不是很多，在一个无所事事的晚上，你最想做什么呢？";
+      : "http://strk2.cn/problems/old/old-one.png";
   }
 }
 </script>

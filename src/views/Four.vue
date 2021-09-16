@@ -143,7 +143,7 @@ export default class Four extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-four.png"
-      : "考试周到来，哪里是你的最佳复习地点？";
+      : "http://strk2.cn/problems/old/old-four.png";
   }
 }
 </script>

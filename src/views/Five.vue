@@ -127,7 +127,7 @@ export default class Five extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-five.png"
-      : "在学校，你最想偶遇什么？";
+      : "http://strk2.cn/problems/old/old-five.png";
   }
 }
 </script>

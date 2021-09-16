@@ -155,7 +155,7 @@ export default class App extends Vue {
 }
 .fade-enter-active {
   will-change: transform;
-  animation: blur 4000ms ease reverse;
+  animation: blur 4000ms ease-out reverse;
 }
 .fade-leave-active {
   will-change: transform;

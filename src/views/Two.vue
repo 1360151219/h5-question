@@ -126,7 +126,7 @@ export default class Two extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-two.png"
-      : "周四下午公休，迎来了空闲时间，你想去干什么呢？";
+      : "http://strk2.cn/problems/old/old-two.png";
   }
 }
 </script>

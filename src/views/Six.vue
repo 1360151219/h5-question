@@ -133,7 +133,7 @@ export default class Six extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-six.png"
-      : "在成为HUSTer的这段日子里，以下哪个瞬间让你最幸福呢？";
+      : "http://strk2.cn/problems/old/old-six.png";
   }
 }
 </script>

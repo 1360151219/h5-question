@@ -135,7 +135,7 @@ export default class Three extends Vue {
   created() {
     this.pro = this.isNew
       ? "http://strk2.cn/problems/new/new-three.png"
-      : "午饭时间到！干饭警钟响起，你要去哪里解决中饭呢？";
+      : "http://strk2.cn/problems/old/old-three.png";
   }
 }
 </script>
