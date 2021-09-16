@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <audio id="music" autoplay muted>
-      <source src="http://strk2.cn/music/Calm.mp3" type="audio/mpeg" />
+      <source
+        src="https://static2.pivotstudio.cn/2021-h5-questions/music/Calm.mp3"
+        type="audio/mpeg"
+      />
     </audio>
     <div id="app">
       <div class="title" v-show="$route.fullPath !== '/res'">
