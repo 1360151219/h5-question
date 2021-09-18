@@ -142,12 +142,10 @@ export default class Res extends Vue {
     }
     return index;
   }
-  url =
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F014f6d5b930faaa8012017eea7c831.gif&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634101205&t=6c3181c90d921eee51592e962698bcfa";
+  url = "https://static2.pivotstudio.cn/2021-h5-questions/poster/load.gif";
   loading = true;
 
   created() {
-    console.log(this.c);
     let cMax = this.getMax(this.c);
     let pMax = this.getMax(this.p);
     let gender = this.isMale ? "0" : "1";

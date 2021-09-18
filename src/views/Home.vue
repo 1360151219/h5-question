@@ -127,7 +127,7 @@
     <transition name="opacity">
       <div v-show="isGender">
         <v-img
-          src="https://static2.pivotstudio.cn/2021-h5-questions/genderChoose.png"
+          src="https://static2.pivotstudio.cn/2021-h5-questions/problems/genderChoose.png"
           style="height: 5vh; top: auto; bottom: -6vh"
         ></v-img>
       </div>
