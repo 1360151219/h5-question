@@ -142,7 +142,7 @@ export default class Res extends Vue {
     }
     return index;
   }
-  url = "https://static2.pivotstudio.cn/2021-h5-questions/poster/load.gif";
+  url = "https://static2.pivotstudio.cn/2021-h5-questions/hust_img/load.gif";
   loading = true;
 
   created() {
