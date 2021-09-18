@@ -156,8 +156,11 @@ export default class Res extends Vue {
     newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/poster/${cMax}${pMax}${gender}.jpg`;
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
-      this.url = newImg.src;
+      setTimeout(()=>{
+        this.url = newImg.src;
       this.loading = false;
+      },2000)
+      
     };
   }
 }
