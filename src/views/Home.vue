@@ -141,6 +141,7 @@ import Component from "vue-class-component";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
 import { Prop } from "vue-property-decorator";
+import { recordRemainTime } from "@/utils";
 @Component({
   components: {
     Stairs,
@@ -162,6 +163,20 @@ export default class Home extends Vue {
   chooseGender(b: boolean) {
     this.$emit("genderChoose", b);
     this.$router.push("/one");
+  }
+  enterTime = 0;
+  leaveTime = 0;
+  created() {
+    this.enterTime = new Date().getTime();
+  }
+  beforeDestroy() {
+    /* 停留时间 */
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 0,
+      time: remain,
+    });
   }
 }
 </script>

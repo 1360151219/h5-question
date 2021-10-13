@@ -1,6 +1,13 @@
 <template>
   <div class="poster_container" data-app="true">
-    <img :src="url" class="poster_img" :class="loading ? 'loading_img' : ''" />
+    <img
+      :src="url"
+      class="poster_img"
+      :class="loading ? 'loading_img' : ''"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+    />
     <v-img
       src="../assets/music.svg"
       contain
@@ -123,6 +130,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import { recordRemainTime } from "@/utils";
 @Component
 export default class Res extends Vue {
   @Prop()
@@ -144,8 +152,31 @@ export default class Res extends Vue {
   }
   url = "https://static2.pivotstudio.cn/2021-h5-questions/hust_img/load.gif";
   loading = true;
-
+  enterTime = 0;
+  leaveTime = 0;
+  timer = 0;
+  touchStart() {
+    this.timer = setTimeout(this.longpress, 500);
+    return false;
+  }
+  touchEnd() {
+    clearTimeout(this.timer);
+    return false;
+  }
+  touchMove() {
+    clearTimeout(this.timer);
+    return false;
+  }
+  longpress() {
+    this.timer = 0;
+    recordRemainTime({
+      id: 99,
+      time: 0,
+      saved: 1,
+    });
+  }
   created() {
+    this.enterTime = new Date().getTime();
     let cMax = this.getMax(this.c);
     let pMax = this.getMax(this.p);
     let gender = this.isMale ? "0" : "1";
@@ -156,12 +187,26 @@ export default class Res extends Vue {
     newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/poster/${cMax}${pMax}${gender}.jpg`;
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
-      let loadingtime = Math.random() * 5000 + 3000;
+      let loadingtime = Math.random() * 3000 + 3000;
       setTimeout(() => {
         this.url = newImg.src;
         this.loading = false;
       }, loadingtime);
     };
+    window.addEventListener("beforeunload", this.leaveHandler);
+    /*
+     */
+  }
+  leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 7,
+      time: remain,
+    });
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>

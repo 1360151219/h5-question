@@ -109,6 +109,7 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
+import { recordRemainTime } from "@/utils";
 @Component({
   components: {
     Stairs,
@@ -125,23 +126,23 @@ export default class One extends Vue {
   @Prop()
   leave2!: string;
   pro = "";
-
-  isPlay = false;
-  musicToggle() {
-    const music = document.getElementById("music");
-    if (music) {
-      if (this.isPlay) {
-        (music as HTMLAudioElement).pause();
-      } else {
-        (music as HTMLAudioElement).play();
-      }
-      this.isPlay = !this.isPlay;
-    }
-  }
+  enterTime = 0;
+  leaveTime = 0;
   created() {
+    this.enterTime = new Date().getTime();
+
     this.pro = this.isNew
       ? "https://static2.pivotstudio.cn/2021-h5-questions/problems/new/new-one.png"
       : "https://static2.pivotstudio.cn/2021-h5-questions/problems/old/old-one.png";
+  }
+  beforeDestroy() {
+    /* 停留时间 */
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 1,
+      time: remain,
+    });
   }
 }
 </script>

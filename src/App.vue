@@ -18,24 +18,32 @@
         class="music"
         style="top: 7vh; z-index: 100"
         @click="musicToggle"
-        v-if="$route.fullPath !== '/res'"
+        v-if="$route.fullPath !== '/res' && isPlay === false"
+      ></v-img>
+      <v-img
+        src="./assets/black_music_close.png"
+        contain
+        height="5vh"
+        width="5vh"
+        class="music"
+        style="top: 7vh; z-index: 100"
+        @click="musicToggle"
+        v-if="$route.fullPath !== '/res' && isPlay === true"
       ></v-img>
       <transition name="fade">
-        <keep-alive>
-          <router-view
-            :clickToNext="clickToNext"
-            :num="num"
-            :isNew="isNew"
-            :isMale="isMale"
-            :c="characters"
-            :p="places"
-            :leave1="leave1"
-            :leave2="leave2"
-            @music:change="musicToggle"
-            @newOrOld="newOrOld"
-            @genderChoose="genderChoose"
-          />
-        </keep-alive>
+        <router-view
+          :clickToNext="clickToNext"
+          :num="num"
+          :isNew="isNew"
+          :isMale="isMale"
+          :c="characters"
+          :p="places"
+          :leave1="leave1"
+          :leave2="leave2"
+          @music:change="musicToggle"
+          @newOrOld="newOrOld"
+          @genderChoose="genderChoose"
+        />
       </transition>
     </div>
   </v-container>
@@ -44,12 +52,12 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
+import { recordRemainTime } from "@/utils";
 @Component
 export default class App extends Vue {
   isShow = false;
   timer = -1;
   clickToNext(c: number, p: number, url: string, point: number) {
-    console.log(this.timer);
     if (this.timer !== -1) clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.characters[c] += point;
@@ -116,7 +124,29 @@ export default class App extends Vue {
   }
   leave1 = "";
   leave2 = "";
+  enterTime = 0;
+  leaveTime = 0;
   created() {
+    /* 是否二维码进入 */
+    const isQr = "qr" in this.$route.query;
+    if (isQr) {
+      recordRemainTime({
+        id: 99,
+        time: 0,
+        rqtype: 1,
+      });
+    } else {
+      recordRemainTime({
+        id: 99,
+        time: 0,
+        rqtype: 0,
+      });
+    }
+
+    /* 调用访问量的接口 */
+    /* 停留时间 */
+    this.enterTime = new Date().getTime();
+    /* ............................... */
     const loading = document.getElementById("load_wrap");
     var newImg = new Image();
     newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/hust_img/leaves1.svg`;
@@ -137,6 +167,19 @@ export default class App extends Vue {
         this.musicToggle();
       }
     }, 5000);
+
+    window.addEventListener("beforeunload", this.leaveHandler);
+  }
+  leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 8,
+      time: remain,
+    });
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>

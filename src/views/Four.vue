@@ -124,6 +124,7 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
+import { recordRemainTime } from "@/utils";
 @Component({
   components: {
     Stairs,
@@ -140,10 +141,22 @@ export default class Four extends Vue {
   leave1!: string;
   @Prop()
   leave2!: string;
+  enterTime = 0;
+  leaveTime = 0;
   created() {
+    this.enterTime = new Date().getTime();
     this.pro = this.isNew
       ? "https://static2.pivotstudio.cn/2021-h5-questions/problems/new/new-four.png"
       : "https://static2.pivotstudio.cn/2021-h5-questions/problems/old/old-four.png";
+  }
+  beforeDestroy() {
+    /* 停留时间 */
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 4,
+      time: remain,
+    });
   }
 }
 </script>
