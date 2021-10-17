@@ -124,7 +124,7 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
-import { recordRemainTime } from "@/utils";
+import { recordRemainTime, ParseQuery } from "@/utils";
 @Component({
   components: {
     Stairs,
@@ -148,6 +148,7 @@ export default class Four extends Vue {
     this.pro = this.isNew
       ? "https://static2.pivotstudio.cn/2021-h5-questions/problems/new/new-four.png"
       : "https://static2.pivotstudio.cn/2021-h5-questions/problems/old/old-four.png";
+    window.addEventListener("beforeunload", this.leaveHandler);
   }
   beforeDestroy() {
     /* 停留时间 */
@@ -157,6 +158,16 @@ export default class Four extends Vue {
       id: 4,
       time: remain,
     });
+  }
+
+  async leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const data = { id: 4, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>

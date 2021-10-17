@@ -130,7 +130,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import { recordRemainTime } from "@/utils";
+import { recordRemainTime, ParseQuery } from "@/utils";
 @Component
 export default class Res extends Vue {
   @Prop()
@@ -197,13 +197,11 @@ export default class Res extends Vue {
     /*
      */
   }
-  leaveHandler() {
+  async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    recordRemainTime({
-      id: 7,
-      time: remain,
-    });
+    const data = { id: 7, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);

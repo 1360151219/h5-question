@@ -107,7 +107,7 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import Stairs from "../components/stairs.vue";
 import Problem from "../components/problems.vue";
-import { recordRemainTime } from "@/utils";
+import { recordRemainTime, ParseQuery } from "@/utils";
 @Component({
   components: {
     Stairs,
@@ -140,6 +140,16 @@ export default class Two extends Vue {
       id: 2,
       time: remain,
     });
+    window.addEventListener("beforeunload", this.leaveHandler);
+  }
+  async leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const data = { id: 2, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>

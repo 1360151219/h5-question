@@ -52,7 +52,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
-import { recordRemainTime } from "@/utils";
+import { recordRemainTime, ParseQuery } from "@/utils";
 @Component
 export default class App extends Vue {
   isShow = false;
@@ -129,19 +129,21 @@ export default class App extends Vue {
   created() {
     /* 是否二维码进入 */
     const isQr = "qr" in this.$route.query;
-    if (isQr) {
-      recordRemainTime({
-        id: 99,
-        time: 0,
-        rqtype: 1,
-      });
-    } else {
-      recordRemainTime({
-        id: 99,
-        time: 0,
-        rqtype: 0,
-      });
-    }
+    setTimeout(() => {
+      if (isQr) {
+        recordRemainTime({
+          id: 99,
+          time: 0,
+          rqtype: 1,
+        });
+      } else {
+        recordRemainTime({
+          id: 99,
+          time: 0,
+          rqtype: 0,
+        });
+      }
+    }, 0);
 
     /* 调用访问量的接口 */
     /* 停留时间 */
@@ -173,10 +175,8 @@ export default class App extends Vue {
   leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    recordRemainTime({
-      id: 8,
-      time: remain,
-    });
+    const data = { id: 8, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);
