@@ -1,8 +1,11 @@
 html,
 body {
-  background-color: rgb(75, 153, 117);
+  background: linear-gradient(
+    180deg,
+    rgba(101, 183, 146, 0.79) 0%,
+    #32815c 100%
+  );
   will-change: transform;
-
   overflow: hidden;
 }
 

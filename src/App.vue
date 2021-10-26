@@ -6,30 +6,12 @@
         type="audio/mpeg"
       />
     </audio>
+    <div
+      class="loading_music_shift"
+      @click="musicToggle"
+      :class="isPlay ? 'rotate' : ''"
+    ></div>
     <div id="app">
-      <div class="title" v-show="$route.fullPath !== '/res'">
-        震惊!你的华中大形象竟是...
-      </div>
-      <v-img
-        src="./assets/black_music.svg"
-        contain
-        height="6vh"
-        width="6vh"
-        class="music"
-        style="top: 7vh; z-index: 100"
-        @click="musicToggle"
-        v-if="$route.fullPath !== '/res' && isPlay === false"
-      ></v-img>
-      <v-img
-        src="./assets/black_music_close.png"
-        contain
-        height="5vh"
-        width="5vh"
-        class="music"
-        style="top: 7vh; z-index: 100"
-        @click="musicToggle"
-        v-if="$route.fullPath !== '/res' && isPlay === true"
-      ></v-img>
       <transition name="fade">
         <router-view
           :clickToNext="clickToNext"
@@ -67,7 +49,7 @@ export default class App extends Vue {
     }, 600);
   }
 
-  isPlay = false;
+  isPlay = true;
   musicToggle() {
     const music = document.getElementById("music") as HTMLVideoElement;
     if (music) {
@@ -162,14 +144,6 @@ export default class App extends Vue {
       // 图片加载成功后把地址给原来的img
       this.leave2 = newImg2.src;
     };
-    setTimeout(() => {
-      if (loading) loading.remove();
-      const music = document.getElementById("music") as HTMLVideoElement;
-      if (music.paused) {
-        this.musicToggle();
-      }
-    }, 5000);
-
     window.addEventListener("beforeunload", this.leaveHandler);
   }
   leaveHandler() {
@@ -214,5 +188,25 @@ export default class App extends Vue {
   100% {
     opacity: 0;
   }
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.loading_music_shift {
+  position: absolute;
+  height: 33px;
+  width: 33px;
+  top: 24px;
+  right: 14px;
+  background-image: url(./assets/loading/loading_music_shift.svg);
+}
+.rotate {
+  animation: rotate linear 4s infinite;
 }
 </style>
