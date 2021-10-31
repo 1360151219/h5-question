@@ -1,13 +1,49 @@
 <template>
-  <div class="home_page">
-    <div id="load_wrap" v-show="loading">
-      <div class="loading_music">
-        <div class="loading_music_pole"></div>
-        <div class="loading_music_cd"></div>
+  <div>
+    <img src="../assets/mask.png" class="home_page" />
+    <transition-group name="fadeChange" tag="div">
+      <div id="load_wrap" v-show="loading && !isGender && !isNew" key="1">
+        <div class="loading_music">
+          <div class="loading_music_pole"></div>
+          <div class="loading_music_cd"></div>
+        </div>
+        <div class="loading_process"></div>
       </div>
-      <div class="loading_process"></div>
-    </div>
-    <v-container v-show="!loading"><div class="logo"></div></v-container>
+      <v-container
+        v-show="!loading && !isGender && !isNew"
+        @click="clickWrap"
+        key="2"
+      >
+        <div class="cover_container">
+          <img src="../assets/cover/Pivot_Studio_logo.png" class="logo" />
+          <img src="../assets/cover/cover.svg" class="cover" />
+        </div>
+        <div class="cover_btn">
+          <img src="../assets/cover/start_btn.svg" />
+          <div class="btn_mask"></div>
+        </div>
+        <div class="cover_click">
+          <img src="../assets/cover/cover_click.svg" alt="" />
+        </div>
+      </v-container>
+      <div
+        class="gender_cover"
+        v-show="isGender"
+        key="3"
+        :class="isNew ? 'remove' : ''"
+      >
+        <img src="../assets/cover/Q_gender.svg" class="Q_gender" />
+        <div class="male" @click="chooseGender(true)"></div>
+        <div class="female" @click="chooseGender(false)"></div>
+      </div>
+      <div class="new_cover" v-show="isNew" key="4">
+        <img src="../assets/cover/leave_cover.svg" class="leave_cover" />
+        <img src="../assets/cover/Q_isnew.png" class="Q_isnew" />
+        <div class="new" @click="chooseNew(true)"></div>
+        <div class="nonew" @click="chooseNew(false)"></div>
+        <div class="back" @click="goback"></div>
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -29,17 +65,21 @@ export default class Home extends Vue {
   leave1!: string;
   @Prop()
   leave2!: string;
-  isChoose = false;
+  isNew = false;
   loading = true;
-  handleClick(b: boolean) {
+  chooseNew(b: boolean) {
     this.$emit("newOrOld", b);
-    this.isGender = true;
-    this.isChoose = false;
+    this.$router.push("/one");
   }
   isGender = false;
   chooseGender(b: boolean) {
+    this.isGender = false;
+    this.isNew = true;
     this.$emit("genderChoose", b);
-    this.$router.push("/one");
+  }
+  goback() {
+    this.isGender = true;
+    this.isNew = false;
   }
   enterTime = 0;
   leaveTime = 0;
@@ -53,7 +93,7 @@ export default class Home extends Vue {
     });
     setTimeout(() => {
       this.loading = false;
-    }, 0);
+    }, 4000);
     this.enterTime = new Date().getTime();
     window.addEventListener("beforeunload", this.leaveHandler);
   }
@@ -66,7 +106,6 @@ export default class Home extends Vue {
       time: remain,
     });
   }
-
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
@@ -76,16 +115,59 @@ export default class Home extends Vue {
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);
   }
+  isClick = false;
+  clickWrap(ev: Event) {
+    const event = ev || window.event;
+    const target = event.target as HTMLElement;
+    const mask = document.querySelector(".btn_mask");
+    if (target?.className !== "btn_mask") {
+      if (this.isClick) return;
+      mask?.classList.add("flashBlue");
+      this.isClick = true;
+      setTimeout(() => {
+        mask?.classList.remove("flashBlue");
+        this.isClick = false;
+      }, 1000);
+    } else {
+      // this.$router.push("/gender");
+      this.isGender = true;
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
+.remove {
+  opacity: 0.2;
+}
+@keyframes blur {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fadeChange-leave-active {
+  animation: blur 600ms ease-out;
+}
+.fadeChange-enter-active {
+  animation: blur 1000ms ease-out reverse;
+}
+.home_page {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
 #load_wrap {
   position: absolute;
   left: 0;
   top: 0;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  z-index: 1000;
+  z-index: 8;
   background-color: #4b9975;
 }
 .loading_music {
@@ -130,8 +212,126 @@ export default class Home extends Vue {
   color: #ffffff;
 }
 .logo {
-  width: 107px;
-  height: 34px;
-  background-image: url(../assets/Pivot_Studio_logo.png);
+  position: absolute;
+  top: 3vh;
+  left: 5vw;
+}
+.cover_container {
+  margin-left: -2.5vw;
+}
+.cover {
+  margin-top: -2vh;
+  transform: scale(1);
+  height: 82vh;
+}
+.cover_btn {
+  margin-top: 10px;
+  margin-bottom: 13px;
+  position: relative;
+}
+.cover_click {
+  animation: upAndDown 1s linear infinite alternate;
+}
+.btn_mask {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 44px;
+  width: 264px;
+}
+.flashBlue {
+  animation: flashBlue 1s linear alternate;
+}
+.gender_cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../assets/cover/gender_cover.svg);
+  background-position-y: 0vw;
+  background-size: cover;
+  background-repeat: repeat-y;
+  animation: small 1s linear alternate;
+  .Q_gender {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -53%);
+  }
+  .male {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 72%;
+    left: 54%;
+    transform: translate(-50%, -53%);
+  }
+  .female {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 53%;
+    left: 48%;
+    transform: translate(-50%, -53%);
+  }
+}
+@keyframes leave {
+  0% {
+    transform: translate(-50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%) scale(1);
+  }
+}
+.new_cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../assets/cover/default_cover.svg);
+  background-size: cover;
+  z-index: 2;
+  .leave_cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%);
+    animation: leave 1s linear alternate;
+  }
+  .Q_isnew {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%);
+  }
+  .new {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+  }
+  .nonew {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 67%;
+    left: 54%;
+    transform: translate(-50%, -53%);
+  }
+}
+.back {
+  position: absolute;
+  bottom: 17vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 60px;
+  width: 100px;
 }
 </style>

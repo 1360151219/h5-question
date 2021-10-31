@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <audio id="music" autoplay muted>
       <source
         src="https://static2.pivotstudio.cn/2021-h5-questions/music/Calm.mp3"
@@ -28,7 +28,7 @@
         />
       </transition>
     </div>
-  </v-container>
+  </div>
 </template>
 <script lang="ts" type="module">
 import Vue from "vue";
@@ -62,7 +62,7 @@ export default class App extends Vue {
     }
   }
   /* 数据啊啊啊 */
-  isNew = false;
+  isNew = false /* true */;
   isMale = false;
   characters = [0, 0, 0, 0, 0, 0];
   places = [0, 0, 0, 0, 0, 0];
@@ -95,15 +95,6 @@ export default class App extends Vue {
     return Math.ceil(Math.random() * 14);
   }
   num = -1;
-  @Watch("$route")
-  routeChange() {
-    this.num = this.randomNum;
-    if (this.$route.fullPath === "/res")
-      document.body.style.backgroundColor = "#ffffff";
-    else {
-      document.body.style.backgroundColor = "rgb(75, 153, 117)";
-    }
-  }
   leave1 = "";
   leave2 = "";
   enterTime = 0;
@@ -131,19 +122,6 @@ export default class App extends Vue {
     /* 停留时间 */
     this.enterTime = new Date().getTime();
     /* ............................... */
-    const loading = document.getElementById("load_wrap");
-    var newImg = new Image();
-    newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/hust_img/leaves1.svg`;
-    newImg.onload = () => {
-      // 图片加载成功后把地址给原来的img
-      this.leave1 = newImg.src;
-    };
-    var newImg2 = new Image();
-    newImg2.src = `https://static2.pivotstudio.cn/2021-h5-questions/hust_img/leaves2.svg`;
-    newImg2.onload = () => {
-      // 图片加载成功后把地址给原来的img
-      this.leave2 = newImg2.src;
-    };
     window.addEventListener("beforeunload", this.leaveHandler);
   }
   leaveHandler() {
@@ -175,11 +153,11 @@ export default class App extends Vue {
 }
 .fade-enter-active {
   will-change: transform;
-  animation: blur 4000ms ease-out reverse;
+  animation: blur 2000ms ease-out reverse;
 }
 .fade-leave-active {
   will-change: transform;
-  animation: blur 400ms ease;
+  animation: blur 500ms ease;
 }
 @keyframes blur {
   0% {
@@ -204,6 +182,7 @@ export default class App extends Vue {
   width: 33px;
   top: 24px;
   right: 14px;
+  z-index: 10;
   background-image: url(./assets/loading/loading_music_shift.svg);
 }
 .rotate {
