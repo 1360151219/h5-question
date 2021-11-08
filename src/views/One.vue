@@ -112,7 +112,7 @@ export default class One extends Vue {
 }
 .back {
   position: absolute;
-  bottom: 12vh;
+  bottom: 16vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

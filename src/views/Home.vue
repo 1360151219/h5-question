@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="clickWrap">
     <img src="../assets/mask.png" class="home_page" />
     <transition-group name="fadeChange" tag="div">
       <div id="load_wrap" v-show="loading && !isGender && !isNew" key="1">
@@ -9,11 +9,7 @@
         </div>
         <div class="loading_process"></div>
       </div>
-      <v-container
-        v-show="!loading && !isGender && !isNew"
-        @click="clickWrap"
-        key="2"
-      >
+      <v-container v-show="!loading && !isGender && !isNew" key="2">
         <div class="cover_container">
           <img src="../assets/cover/Pivot_Studio_logo.png" class="logo" />
           <img src="../assets/cover/cover.svg" class="cover" />
@@ -33,14 +29,22 @@
         :class="isNew ? 'remove' : ''"
       >
         <img src="../assets/cover/Q_gender.svg" class="Q_gender" />
-        <div class="male" @click="chooseGender(true)"></div>
-        <div class="female" @click="chooseGender(false)"></div>
+        <div class="male" @click="chooseGender(true)">
+          <div class="btn_mask male_mask"></div>
+        </div>
+        <div class="female" @click="chooseGender(false)">
+          <div class="btn_mask female_mask"></div>
+        </div>
       </div>
       <div class="new_cover" v-show="isNew" key="4">
         <img src="../assets/cover/leave_cover.svg" class="leave_cover" />
         <img src="../assets/cover/Q_isnew.png" class="Q_isnew" />
-        <div class="new" @click="chooseNew(true)"></div>
-        <div class="nonew" @click="chooseNew(false)"></div>
+        <div class="new" @click="chooseNew(true)">
+          <div class="btn_mask male_mask"></div>
+        </div>
+        <div class="nonew" @click="chooseNew(false)">
+          <div class="btn_mask male_mask"></div>
+        </div>
         <div class="back" @click="goback"></div>
       </div>
     </transition-group>
@@ -119,15 +123,17 @@ export default class Home extends Vue {
   clickWrap(ev: Event) {
     const event = ev || window.event;
     const target = event.target as HTMLElement;
-    const mask = document.querySelector(".btn_mask");
+    const masks = document.querySelectorAll(".btn_mask");
     if (target?.className !== "btn_mask") {
       if (this.isClick) return;
-      mask?.classList.add("flashBlue");
-      this.isClick = true;
-      setTimeout(() => {
-        mask?.classList.remove("flashBlue");
-        this.isClick = false;
-      }, 1000);
+      for (let mask of masks) {
+        mask?.classList.add("flashBlue");
+        this.isClick = true;
+        setTimeout(() => {
+          mask?.classList.remove("flashBlue");
+          this.isClick = false;
+        }, 1000);
+      }
     } else {
       // this.$router.push("/gender");
       this.isGender = true;
@@ -239,6 +245,10 @@ export default class Home extends Vue {
   transform: translateX(-50%);
   height: 44px;
   width: 264px;
+}
+.btn_mask.female_mask,
+.btn_mask.male_mask {
+  width: 208px;
 }
 .flashBlue {
   animation: flashBlue 1s linear alternate;

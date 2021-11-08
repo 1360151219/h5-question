@@ -36,12 +36,12 @@ export default class Five extends Vue {
   clickToNext!: (c: number, p: number, url: string, point: number) => void;
   @Prop()
   isNew!: boolean;
-  
+
   enterTime = 0;
   leaveTime = 0;
   created() {
     this.enterTime = new Date().getTime();
-   
+
     window.addEventListener("beforeunload", this.leaveHandler);
   }
   beforeDestroy() {
@@ -154,7 +154,8 @@ export default class Five extends Vue {
 }
 .back {
   position: absolute;
-  bottom: 14vh;
+
+  bottom: 16vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;
