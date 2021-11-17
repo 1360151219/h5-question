@@ -33,7 +33,6 @@
 <script lang="ts" type="module">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Watch } from "vue-property-decorator";
 import { recordRemainTime, ParseQuery } from "@/utils";
 @Component
 export default class App extends Vue {
@@ -62,7 +61,8 @@ export default class App extends Vue {
     }
   }
   /* 数据啊啊啊 */
-  isNew = false /* true */;
+  isNew = true;
+  // isNew=false
   isMale = false;
   characters = [0, 0, 0, 0, 0, 0];
   places = [0, 0, 0, 0, 0, 0];
@@ -75,22 +75,6 @@ export default class App extends Vue {
   genderChoose(b: boolean) {
     this.isMale = b;
   }
-  // colors = [
-  //   "#DCAC6D",
-  //   "#ACC2D2",
-  //   "#CF948E",
-  //   "#9AB7A4",
-  //   "#D6C8D3",
-  //   "#A7A4A1",
-  //   "#AE9E8E",
-  //   "#ACB484",
-  //   "#5EC0B8",
-  //   "#ECB7C0",
-  //   "#5A8AC8",
-  //   "#3E8C75",
-  //   "#60B3E5",
-  //   "#6EAF89",
-  // ];
   get randomNum() {
     return Math.ceil(Math.random() * 14);
   }

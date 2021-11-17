@@ -1,129 +1,21 @@
 <template>
   <div class="poster_container" data-app="true">
-    <img
-      :src="url"
-      class="poster_img"
-      :class="loading ? 'loading_img' : ''"
-      @touchstart="touchStart"
-      @touchmove="touchMove"
-      @touchend="touchEnd"
-    />
-    <v-img
-      src="../assets/music.svg"
-      contain
-      height="6vh"
-      width="6vh"
-      class="music"
-      style="top: 27vh; z-index: 100"
-      @click="$emit('music:change')"
-      v-show="!loading"
-    ></v-img>
-    <!-- <v-snackbar v-model="snackbar" centered v-if="snackbar">
-      正在生成海报，请稍等（亿会会）.....
-    </v-snackbar>
-    <div class="header d-flex justify-space-between">
-      <div>
-        <v-img
-          class="name"
-          src="../assets/poster/header_name.svg"
-          height="30vw"
-          contain
-        ></v-img>
-      </div>
-
-      <div>
-        <v-img class="time" src="../assets/2021.svg" height="4vw" contain>
-          <div class="time_date">
-            {{ this.time.month + "月" + this.time.day + "日" }}
-          </div>
-          <div class="time_minutes">
-            {{ this.time.hour + ":" + this.time.min }}
-          </div>
-          <v-img src="../assets/2021_line.svg" class="time_line"></v-img>
-          <v-img
-            src="../assets/skew_line.svg"
-            class="time_skewline"
-            contain
-          ></v-img>
-        </v-img>
-      </div>
-    </div>
-    <div class="d-flex">
-      <div class="flex-item">
-        <v-img
-          :src="character_bg"
-          contain
-          max-width="54vw"
-          min-height="70vh"
-          class="character_bg"
-        >
-          <v-img
-            contain
-            src="../assets/poster/art_logo.svg"
-            class="character_logo"
-          ></v-img>
-          <v-img
-            contain
-            :src="character"
-            class="character"
-            :class="c === 5 ? 'cat' : ''"
-          ></v-img>
-        </v-img>
-        <v-img
-          src="../assets/pivotStudio_logo.svg"
-          contain
-          height="7vh"
-          class="logo"
-        ></v-img>
-      </div>
-      <div class="flex-item">
-        <div class="result">你的测试结果是：</div>
-
-        <v-img :src="character_title" height="5vh" contain class="test_title">
-          <v-img
-            src="../assets/smail.svg"
-            height="2.5vh"
-            width="100%"
-            contain
-            style="top: 8vw"
-          ></v-img>
-        </v-img>
-
-        <div class="text">
-          <span style="font-size: 30px">{{
-            description[c][p].detail.substr(0, 1)
-          }}</span
-          ><span>{{ description[c][p].detail.substr(1) }}</span>
+    <img src="../assets/mask.png" class="home_page" v-show="loading" />
+    <transition-group name="fadeChange">
+      <div id="load_wrap" v-show="loading" key="1">
+        <div class="loading_music">
+          <div class="loading_music_pole"></div>
+          <div class="loading_music_cd"></div>
         </div>
-
-        <v-img
-          src="../assets/poster/music.svg"
-          contain
-          height="8vh"
-          width="8vh"
-          class="music"
-          @click="$emit('music:change')"
-        ></v-img>
-
-        <v-img
-          src="../assets/poster/share.svg"
-          contain
-          height="8vh"
-          width="8vh"
-          class="share"
-          @click="toImg"
-        ></v-img>
-
-        <v-img
-          src="../assets/qrcode.png"
-          contain
-          height="13vh"
-          width="13vh"
-          class="qrcode"
-        ></v-img>
+        <div class="loading_process">正在生成你的形象</div>
       </div>
-    </div> -->
-    <div class="tip_save">长按即可保存</div>
+      <img
+        :src="url"
+        :class="change ? 'change_poster' : 'poster'"
+        key="2"
+        v-show="!loading"
+      />
+    </transition-group>
   </div>
 </template>
 <script lang="ts">
@@ -150,7 +42,7 @@ export default class Res extends Vue {
     }
     return index;
   }
-  url = "https://static2.pivotstudio.cn/2021-h5-questions/hust_img/load.gif";
+  url = "";
   loading = true;
   enterTime = 0;
   leaveTime = 0;
@@ -175,11 +67,13 @@ export default class Res extends Vue {
       saved: 1,
     });
   }
+  change = false;
   created() {
     this.enterTime = new Date().getTime();
     let cMax = this.getMax(this.c);
     let pMax = this.getMax(this.p);
     let gender = this.isMale ? "0" : "1";
+    if (cMax === 3 && pMax === 3 && !gender) this.change = true;
     if (cMax === 5) {
       gender = "";
     }
@@ -188,8 +82,8 @@ export default class Res extends Vue {
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
       let loadingtime = Math.random() * 3000 + 3000;
+      this.url = newImg.src;
       setTimeout(() => {
-        this.url = newImg.src;
         this.loading = false;
       }, loadingtime);
     };
@@ -209,154 +103,85 @@ export default class Res extends Vue {
 }
 </script>
 <style lang="scss">
-.poster_img {
-  width: 100vw;
-  transition: 0.3s all;
-  transform: translateY(-0.8vh) scaleY(0.88);
-}
-.loading_img {
-  width: 100vw;
-}
-.poster_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#load_wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 100vh;
+  width: 100%;
+  background-color: #4b9975;
 }
-.character_bg {
+.loading_music {
   position: absolute;
-  top: 19vh;
-  left: 0vw;
-  .character {
-    transform: scale(1.7);
-  }
-  .cat {
-    transform: scale(1.1);
-    top: 8vh;
-    left: 0vw;
-  }
-  .character_logo {
-    position: absolute;
-    left: -17vw;
-    top: -9.5vh;
-
-    transform: scale(0.4);
-  }
+  height: 117px;
+  width: 117px;
+  top: 45vh;
+  left: 50vw;
+  z-index: 4;
+  transform: translate(-50%, -50%);
 }
-.v-image__placeholder {
-  top: 50%;
-  left: 60%;
+.loading_music_pole {
+  position: absolute;
+  top: -15px;
+  left: 38px;
+  height: 63px;
+  width: 89px;
+  z-index: 4;
+  background-image: url(../assets/loading/loading.svg);
 }
-.handlePos {
-  transform: translateX(-52%) scale(1) !important;
-  width: 104vw;
+.loading_music_cd {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  height: 100px;
+  width: 100px;
+  background-image: url(../assets/loading/loading_cd_notext.svg);
+  background-size: contain;
+  animation: rotate linear 4s infinite;
 }
-.handlePosTwo {
-  transform: translateX(-50%) !important;
-  width: 100vw;
-}
-.time {
-  left: 31vw;
-  top: 4vw;
-  overflow: inherit;
+.loading_process {
+  position: absolute;
+  top: 54vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  font-family: Yuanti SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  z-index: 4;
+  line-height: 20px;
   color: #fff;
-  font-family: sans-serif;
-  .time_line {
-    left: auto;
-    height: 1vw;
-    top: 5vw;
-    width: 42vw;
-    right: 30vw;
-  }
-  .time_skewline {
-    top: 4vh;
-    right: -21vw;
-    left: auto;
-    height: 13vh;
-  }
-  .time_date {
-    letter-spacing: 0.4vw;
-    position: absolute;
-    top: 5vh;
-    right: 52vw;
-    font-size: 5vw;
-  }
-  .time_minutes {
-    letter-spacing: 0.9vw;
-    position: absolute;
-    top: 8vh;
-    right: 28vw;
-    font-size: 6vw;
-  }
 }
-.logo {
-  top: 84vh;
-  left: -20vw;
-}
-.header {
-  position: relative;
-  height: 100%;
-  top: 10vw;
-  .name {
-    left: -18vw;
-    top: 2vw;
-  }
-}
-.text {
-  width: 42vw;
+.home_page {
   position: absolute;
-  left: auto;
-  right: -1vw;
-  padding: 0 1vw;
-  top: 35vh;
-  letter-spacing: 0.5vw;
-  font-family: auto;
-  text-indent: 5vw;
+  top: 0px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;
 }
-// .text::first-letter {
-//   font-size: 8vw;
-// }
-.result {
-  font-size: 5vw;
-  letter-spacing: 1vw;
+.poster {
   position: absolute;
-  left: auto;
-  right: 1vw;
-  top: 22vh;
-  font-family: auto;
+  left: 0px;
+  top: -20px;
+  height: 100vh;
+  width: 102%;
+  z-index: 1;
+  transform: scale(1.12);
 }
-.test_title {
+.change_poster {
   position: absolute;
-  left: auto;
-  right: -27vw;
-  top: 28vh;
-  overflow: inherit;
+  left: -34px;
+  top: -20px;
+  height: 100vh;
+  width: 102%;
+  z-index: 1;
+  transform: scale(1.12);
 }
-.music {
-  position: absolute;
-  left: auto;
-  right: 50vw;
-  top: 78vh;
+.fadeChange-leave-active {
+  animation: blur 600ms ease-out;
 }
-.share {
-  position: absolute;
-  left: auto;
-  right: 2vw;
-  top: 86vh;
-}
-.produce_img {
-  transform: translateX(-12vw) scale(0.7);
-  top: 10vw;
-  left: 66vw;
-}
-.qrcode {
-  left: auto;
-  right: 18vw;
-  top: 80vh;
-}
-.flex-item {
-  flex: 1;
-  height: 100%;
-  position: relative;
+.fadeChange-enter-active {
+  animation: blur 1000ms ease-out reverse;
 }
 </style>

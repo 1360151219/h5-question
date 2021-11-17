@@ -1,6 +1,10 @@
 <template>
   <div @click="clickWrap">
-    <img src="../assets/mask.png" class="home_page" />
+    <img
+      src="../assets/mask.png"
+      class="home_page"
+      :class="loading ? 'zIndex-1' : ''"
+    />
     <transition-group name="fadeChange" tag="div">
       <div id="load_wrap" v-show="loading && !isGender && !isNew" key="1">
         <div class="loading_music">
@@ -54,16 +58,9 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import Stairs from "../components/stairs.vue";
-import Problem from "../components/problems.vue";
 import { Prop } from "vue-property-decorator";
 import { recordRemainTime, ParseQuery } from "@/utils";
-@Component({
-  components: {
-    Stairs,
-    Problem,
-  },
-})
+@Component
 export default class Home extends Vue {
   @Prop()
   leave1!: string;
@@ -124,7 +121,8 @@ export default class Home extends Vue {
     const event = ev || window.event;
     const target = event.target as HTMLElement;
     const masks = document.querySelectorAll(".btn_mask");
-    if (target?.className !== "btn_mask") {
+    console.log(target.className);
+    if (!target?.className.includes("btn_mask")) {
       if (this.isClick) return;
       for (let mask of masks) {
         mask?.classList.add("flashBlue");
@@ -143,7 +141,7 @@ export default class Home extends Vue {
 </script>
 <style lang="scss" scoped>
 .remove {
-  opacity: 0.2;
+  opacity: 0;
 }
 @keyframes blur {
   0% {
@@ -165,7 +163,6 @@ export default class Home extends Vue {
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: -1;
 }
 #load_wrap {
   position: absolute;
@@ -173,7 +170,6 @@ export default class Home extends Vue {
   top: 0;
   height: 100vh;
   width: 100%;
-  z-index: 8;
   background-color: #4b9975;
 }
 .loading_music {
@@ -183,6 +179,7 @@ export default class Home extends Vue {
   top: 40vh;
   left: 50vw;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
 .loading_music_pole {
   position: absolute;
@@ -214,6 +211,7 @@ export default class Home extends Vue {
   font-weight: normal;
   font-size: 21.0938px;
   line-height: 30px;
+  z-index: 2;
 
   color: #ffffff;
 }
@@ -274,7 +272,7 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 72%;
+    top: 74vh;
     left: 54%;
     transform: translate(-50%, -53%);
   }
@@ -323,7 +321,7 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 50%;
+    top: 51%;
     left: 50%;
     transform: translate(-50%, -53%);
   }
@@ -331,7 +329,7 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 67%;
+    top: 69%;
     left: 54%;
     transform: translate(-50%, -53%);
   }
