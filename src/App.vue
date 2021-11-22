@@ -20,8 +20,6 @@
           :isMale="isMale"
           :c="characters"
           :p="places"
-          :leave1="leave1"
-          :leave2="leave2"
           @music:change="musicToggle"
           @newOrOld="newOrOld"
           @genderChoose="genderChoose"
@@ -79,8 +77,6 @@ export default class App extends Vue {
     return Math.ceil(Math.random() * 14);
   }
   num = -1;
-  leave1 = "";
-  leave2 = "";
   enterTime = 0;
   leaveTime = 0;
   created() {

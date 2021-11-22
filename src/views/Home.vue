@@ -16,7 +16,7 @@
       <v-container v-show="!loading && !isGender && !isNew" key="2">
         <div class="cover_container">
           <img src="../assets/cover/Pivot_Studio_logo.png" class="logo" />
-          <img src="../assets/cover/cover.svg" class="cover" />
+          <img src="../assets/cover/cover.png" class="cover" />
         </div>
         <div class="cover_btn">
           <img src="../assets/cover/start_btn.svg" />
@@ -224,12 +224,12 @@ export default class Home extends Vue {
   margin-left: -2.5vw;
 }
 .cover {
-  margin-top: -2vh;
-  transform: scale(1);
-  height: 82vh;
+  margin-top: 4vh;
+  transform: scale(1.5);
+  height: 80vh;
 }
 .cover_btn {
-  margin-top: 10px;
+  // margin-top: 20px;
   margin-bottom: 13px;
   position: relative;
 }
@@ -316,6 +316,7 @@ export default class Home extends Vue {
     left: 50%;
     top: 44%;
     transform: translate(-50%, -50%);
+    width: 63vw;
   }
   .new {
     height: 43px;

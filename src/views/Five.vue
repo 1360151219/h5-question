@@ -81,8 +81,8 @@ export default class Five extends Vue {
 }
 .leave_cover {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   left: 50%;
   bottom: 0;
   transform: translate(-50%);

@@ -9,13 +9,16 @@
         </div>
         <div class="loading_process">正在生成你的形象</div>
       </div>
-      <img
-        :src="url"
-        :class="change ? 'change_poster' : 'poster'"
-        key="2"
-        v-show="!loading"
-      />
-      <div class="btn"></div>
+      <div key="2" v-show="!loading">
+        <img
+          src="../assets/321.jpg"
+          :class="change ? 'change_poster' : 'poster'"
+          @touchstart="touchStart"
+          @touchmove="touchMove"
+          @touchend="touchEnd"
+        />
+        <div class="btn" @click="$router.push('/')"></div>
+      </div>
     </transition-group>
   </div>
 </template>
@@ -103,7 +106,7 @@ export default class Res extends Vue {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #load_wrap {
   position: absolute;
   left: 0;
@@ -164,11 +167,9 @@ export default class Res extends Vue {
 .poster {
   position: absolute;
   left: 0px;
-  top: -20px;
-  height: 100vh;
-  width: 102%;
+  top: -70px;
+  width: 100vw;
   z-index: 1;
-  transform: scale(1.12);
 }
 .change_poster {
   position: absolute;
@@ -178,6 +179,14 @@ export default class Res extends Vue {
   width: 102%;
   z-index: 1;
   transform: scale(1.12);
+}
+.btn {
+  position: absolute;
+  bottom: -100vh;
+  left: 34vw;
+  height: 60px;
+  width: 100px;
+  z-index: 100;
 }
 .fadeChange-leave-active {
   animation: blur 600ms ease-out;
