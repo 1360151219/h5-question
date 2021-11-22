@@ -1,5 +1,5 @@
 {
-  "title":"震惊!你的华中大形象竟是...",
+  "title": "震惊!你的华中大形象竟是...",
   "description": "快来测一测你的华中大形象吧！！！",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.3.2",

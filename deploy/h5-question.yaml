@@ -38,7 +38,7 @@ spec:
     spec:
       priorityClassName: high-priority
       containers:
-      - image: registry.cn-hangzhou.aliyuncs.com/pivotstudio/h5-question:latest
+      - image: registry.cn-beijing.aliyuncs.com/strk2/hust-test:latest
         name: h5-question
         ports:
           - containerPort: 8110

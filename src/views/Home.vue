@@ -1,228 +1,149 @@
 <template>
-  <div>
-    <div class="bg">
-      <v-img :src="leave1" :lazy-src="leave1" class="zindex-10"></v-img>
-      <v-img :src="leave2" :lazy-src="leave2" class="leaves"></v-img>
-      <v-img
-        src="../assets/light2.svg"
-        lazy-src="../assets/light2.svg"
-        class="zindex-100 light_2"
-      ></v-img>
-      <!-- 需要过渡的叶子  左边-->
-      <v-img
-        src="../assets/cover/left_back.svg"
-        lazy-src="../assets/cover/left_back.svg"
-        class="leaves_left_back zindex-1"
-        max-width="34vh"
-        contain
-        key="back"
-      ></v-img>
-
-      <v-img
-        src="../assets/cover/left_front.svg"
-        lazy-src="../assets/cover/left_front.svg"
-        class="leaves_left_front zindex-10"
-        max-width="44vh"
-        contain
-        key="front"
-      ></v-img>
-
-      <!-- 右边 -->
-      <v-img
-        src="../assets/cover/right_back.svg"
-        lazy-src="../assets/cover/right_back.svg"
-        class="leaves_right_back"
-        max-width="46vh"
-        contain
-      ></v-img>
-      <v-img
-        src="../assets/cover/right_front.svg"
-        lazy-src="../assets/cover/right_front.svg"
-        class="leaves_right_front zindex-10"
-        max-width="44vh"
-        contain
-      ></v-img>
-
-      <v-img
-        src="../assets/flsorescence.svg"
-        lazy-src="../assets/flsorescence.svg"
-        class="zindex-100 light_3"
-      ></v-img>
-      <v-img
-        src="../assets/flsorescence_change.svg"
-        lazy-src="../assets/flsorescence_change.svg"
-        class="zindex-100 light_3_reverse"
-        contain
+  <div @click="clickWrap">
+    <img
+      src="../assets/mask.png"
+      class="home_page"
+      :class="loading ? 'zIndex-1' : ''"
+    />
+    <transition-group name="fadeChange" tag="div">
+      <div id="load_wrap" v-show="loading && !isGender && !isNew" key="1">
+        <div class="loading_music">
+          <div class="loading_music_pole"></div>
+          <div class="loading_music_cd"></div>
+        </div>
+        <div class="loading_process"></div>
+      </div>
+      <v-container v-show="!loading && !isGender && !isNew" key="2">
+        <div class="cover_container">
+          <img src="../assets/cover/Pivot_Studio_logo.png" class="logo" />
+          <img src="../assets/cover/cover.png" class="cover" />
+        </div>
+        <div class="cover_btn">
+          <img src="../assets/cover/start_btn.svg" />
+          <div class="btn_mask"></div>
+        </div>
+        <div class="cover_click">
+          <img src="../assets/cover/cover_click.svg" alt="" />
+        </div>
+      </v-container>
+      <div
+        class="gender_cover"
+        v-show="isGender"
+        key="3"
+        :class="isNew ? 'remove' : ''"
       >
-      </v-img>
-      <!-- 开始 -->
-      <transition name="opacity">
-        <div v-show="!isChoose && !isGender">
-          <v-img
-            src="http://strk2.cn:3000/img/start.8ee8bdba.svg"
-            lazy-src="../assets/start.svg"
-            contain
-            class="zindex-10 start"
-          ></v-img>
-          <v-img
-            src="../assets/start_btn.svg"
-            lazy-src="../assets/start_btn.svg"
-            contain
-            max-width="16vh"
-            class="start_btn"
-            @click="isChoose = true"
-          ></v-img></div
-      ></transition>
-      <!-- 选择性别 -->
-      <transition name="opacity">
-        <div v-show="isGender">
-          <v-img
-            src="../assets/female.png"
-            class="options option_1"
-            max-width="30vh"
-            max-height="30vh"
-            @click="chooseGender(false)"
-            contain
-          ></v-img>
-          <v-img
-            src="../assets/male.png"
-            class="options option_2"
-            max-width="30vh"
-            max-height="30vh"
-            @click="chooseGender(true)"
-            contain
-          ></v-img></div
-      ></transition>
-      <!-- 选择新老生 -->
-      <transition name="opacity">
-        <div v-show="isChoose">
-          <v-img
-            src="../assets/no.svg"
-            lazy-src="../assets/no.svg"
-            class="options option_1"
-            max-width="30vh"
-            max-height="30vh"
-            @click="handleClick(false)"
-            contain
-          ></v-img>
-          <v-img
-            src="../assets/yes.svg"
-            lazy-src="../assets/yes.svg"
-            class="options option_2"
-            max-width="30vh"
-            max-height="30vh"
-            @click="handleClick(true)"
-            contain
-          ></v-img></div
-      ></transition>
-    </div>
-    <transition name="opacity">
-      <div v-show="isChoose">
-        <v-img
-          src="http://strk2.cn/problems/isFreshman.png"
-          style="height: 5vh; top: auto; bottom: -6vh"
-        ></v-img>
+        <img src="../assets/cover/Q_gender.svg" class="Q_gender" />
+        <div class="male" @click="chooseGender(true)">
+          <div class="btn_mask male_mask"></div>
+        </div>
+        <div class="female" @click="chooseGender(false)">
+          <div class="btn_mask female_mask"></div>
+        </div>
       </div>
-    </transition>
-    <transition name="opacity">
-      <div v-show="isGender">
-        <v-img
-          src="http://strk2.cn/problems/genderChoose.png"
-          style="height: 5vh; top: auto; bottom: -6vh"
-        ></v-img>
+      <div class="new_cover" v-show="isNew" key="4">
+        <img src="../assets/cover/leave_cover.svg" class="leave_cover" />
+        <img src="../assets/cover/Q_isnew.png" class="Q_isnew" />
+        <div class="new" @click="chooseNew(true)">
+          <div class="btn_mask male_mask"></div>
+        </div>
+        <div class="nonew" @click="chooseNew(false)">
+          <div class="btn_mask male_mask"></div>
+        </div>
+        <div class="back" @click="goback"></div>
       </div>
-    </transition>
+    </transition-group>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import Stairs from "../components/stairs.vue";
-import Problem from "../components/problems.vue";
 import { Prop } from "vue-property-decorator";
-@Component({
-  components: {
-    Stairs,
-    Problem,
-  },
-})
+import { recordRemainTime, ParseQuery } from "@/utils";
+@Component
 export default class Home extends Vue {
   @Prop()
   leave1!: string;
   @Prop()
   leave2!: string;
-  isChoose = false;
-  handleClick(b: boolean) {
+  isNew = false;
+  loading = true;
+  chooseNew(b: boolean) {
     this.$emit("newOrOld", b);
-    this.isGender = true;
-    this.isChoose = false;
+    this.$router.push("/one");
   }
   isGender = false;
   chooseGender(b: boolean) {
+    this.isGender = false;
+    this.isNew = true;
     this.$emit("genderChoose", b);
-    this.$router.push("/one");
+  }
+  goback() {
+    this.isGender = true;
+    this.isNew = false;
+  }
+  enterTime = 0;
+  leaveTime = 0;
+  created() {
+    this.$nextTick(() => {
+      const process = document.querySelector(".loading_process") as HTMLElement;
+      let i = 0;
+      setInterval(() => {
+        if (i <= 100) process.innerHTML = i++ + "%";
+      }, 40);
+    });
+    setTimeout(() => {
+      this.loading = false;
+    }, 4000);
+    this.enterTime = new Date().getTime();
+    window.addEventListener("beforeunload", this.leaveHandler);
+  }
+  beforeDestroy() {
+    /* 停留时间 */
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 0,
+      time: remain,
+    });
+  }
+  async leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const data = { id: 0, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
+  }
+  isClick = false;
+  clickWrap(ev: Event) {
+    const event = ev || window.event;
+    const target = event.target as HTMLElement;
+    const masks = document.querySelectorAll(".btn_mask");
+    console.log(target.className);
+    if (!target?.className.includes("btn_mask")) {
+      if (this.isClick) return;
+      for (let mask of masks) {
+        mask?.classList.add("flashBlue");
+        this.isClick = true;
+        setTimeout(() => {
+          mask?.classList.remove("flashBlue");
+          this.isClick = false;
+        }, 1000);
+      }
+    } else {
+      // this.$router.push("/gender");
+      this.isGender = true;
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
-.bg {
-  background-image: url(../assets/cover/bg.svg);
-  background-position-y: -10vh;
-  background-size: cover;
-  position: relative;
-  width: 100%;
-  height: 82vh;
-  box-shadow: inset 2px 2px 5px #333, inset -2px -2px 5px #333;
-  overflow: hidden;
+.remove {
+  opacity: 0;
 }
-.v-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-@keyframes slide-Y {
-  0% {
-    transform: translateY(0px) translateX(-50%) scale(1.4);
-  }
-  100% {
-    transform: translateY(20px) translateX(-50%) scale(1.4);
-  }
-}
-.start {
-  top: 2vh;
-  left: 50%;
-  pointer-events: none;
-  animation: slide-Y 1s infinite alternate;
-}
-.start_btn {
-  top: 25vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-.leaves {
-  top: -2vh !important;
-  height: 110% !important;
-  pointer-events: none;
-}
-.light_1 {
-  z-index: 100;
-  top: -8vh !important;
-  left: -8vw !important;
-  transform: scale(0.4);
-  pointer-events: none;
-}
-.light_2 {
-  z-index: 100;
-  top: 16vh !important;
-  left: 3vw !important;
-  transform: scale(1);
-  pointer-events: none;
-}
-@keyframes flash {
+@keyframes blur {
   0% {
     opacity: 1;
   }
@@ -230,91 +151,196 @@ export default class Home extends Vue {
     opacity: 0;
   }
 }
-.light_3 {
-  z-index: 100;
-  top: 0vh !important;
-  left: -4vw !important;
-  transform: scale(1);
-  pointer-events: none;
-  animation: flash 1000ms 2s infinite alternate;
+.fadeChange-leave-active {
+  animation: blur 600ms ease-out;
 }
-.light_3_reverse {
-  z-index: 100;
-  top: -18vh !important;
-  left: -4vw !important;
+.fadeChange-enter-active {
+  animation: blur 1000ms ease-out reverse;
+}
+.home_page {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+#load_wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: #4b9975;
+}
+.loading_music {
+  position: absolute;
+  height: 117px;
+  width: 117px;
+  top: 40vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.loading_music_pole {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  height: 63px;
+  width: 89px;
+  z-index: 1;
+  background-image: url(../assets/loading/loading.svg);
+}
+.loading_music_cd {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  height: 118px;
+  width: 118px;
+  background-image: url(../assets/loading/loading_music_cd.svg);
+  transform-origin: 50px 66.45px;
+  background-size: contain;
+  animation: rotate linear 4s infinite;
+}
+.loading_process {
+  position: absolute;
+  top: 52vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  font-family: Yuanti SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21.0938px;
+  line-height: 30px;
+  z-index: 2;
+
+  color: #ffffff;
+}
+.logo {
+  position: absolute;
+  top: 3vh;
+  left: 5vw;
+}
+.cover_container {
+  margin-left: -2.5vw;
+}
+.cover {
+  margin-top: 4vh;
   transform: scale(1.5);
-  pointer-events: none;
-  animation: flash 1000ms 2s infinite alternate-reverse;
+  height: 80vh;
 }
-/* 叶子过渡 */
-@keyframes slide-left-in {
-  0% {
-    transform: translateX(-300px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
+.cover_btn {
+  // margin-top: 20px;
+  margin-bottom: 13px;
+  position: relative;
 }
-@keyframes slide-right-in {
-  0% {
-    transform: translateX(300px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
+.cover_click {
+  animation: upAndDown 1s linear infinite alternate;
 }
-.leaves_left_back {
-  animation: slide-left-in 3s 4s;
-  pointer-events: none;
-  top: 12vh;
-}
-.leaves_left_front {
-  animation: slide-left-in 3s 4s;
-  pointer-events: none;
-  top: 31vh;
-}
-.leaves_right_back {
-  animation: slide-right-in 3s 4s;
-  pointer-events: none;
-  top: 6vh;
-  left: 7vh;
-}
-.leaves_right_front {
-  animation: slide-right-in 3s 4s;
-  pointer-events: none;
-  top: 33vh;
-  left: auto;
-  right: -2vh;
-}
-.opacity-leave-active {
-  opacity: 0;
-}
-.opacity-enter-active {
-  opacity: 0;
-}
-.option_1 {
-  z-index: 100;
-  top: 10%;
+.btn_mask {
   position: absolute;
-  left: 0vw;
-  animation: upanddown_1 5000ms infinite alternate;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 44px;
+  width: 264px;
 }
-.option_2 {
-  z-index: 100;
-  top: 50%;
+.btn_mask.female_mask,
+.btn_mask.male_mask {
+  width: 208px;
+}
+.flashBlue {
+  animation: flashBlue 1s linear alternate;
+}
+.gender_cover {
   position: absolute;
-  left: 40vw;
-  animation: upanddown_1 5000ms infinite alternate;
-}
-@keyframes upanddown_1 {
-  0% {
-    transform: scale(0.9) translateY(-60px);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../assets/cover/gender_cover.svg);
+  background-position-y: 0vw;
+  background-size: cover;
+  background-repeat: repeat-y;
+  animation: small 1s linear alternate;
+  .Q_gender {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -53%);
   }
-  50% {
-    transform: scale(0.9) translateY(0px);
+  .male {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 74vh;
+    left: 54%;
+    transform: translate(-50%, -53%);
+  }
+  .female {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 53%;
+    left: 48%;
+    transform: translate(-50%, -53%);
+  }
+}
+@keyframes leave {
+  0% {
+    transform: translate(-50%) scale(1.2);
   }
   100% {
-    transform: scale(0.9) translateY(-60px);
+    transform: translate(-50%) scale(1);
   }
+}
+.new_cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../assets/cover/default_cover.svg);
+  background-size: cover;
+  z-index: 2;
+  .leave_cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%);
+    animation: leave 1s linear alternate;
+  }
+  .Q_isnew {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%);
+    width: 63vw;
+  }
+  .new {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+  }
+  .nonew {
+    height: 43px;
+    width: 214px;
+    position: absolute;
+    top: 69%;
+    left: 54%;
+    transform: translate(-50%, -53%);
+  }
+}
+.back {
+  position: absolute;
+  bottom: 17vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 60px;
+  width: 100px;
 }
 </style>

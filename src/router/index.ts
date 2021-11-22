@@ -1,12 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import One from '../views/One.vue'
-import Two from '../views/Two.vue'
-import Three from '../views/Three.vue'
-import Four from '../views/Four.vue'
-import Five from '../views/Five.vue'
-import Six from '../views/Six.vue'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -16,12 +10,18 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: '/gender',
+    name: 'Home',
+    component: () => import('../views/Gender.vue')
+  },
+  {
     path: '/one',
     name: 'One',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: One
+    component: () => import('../views/One.vue')
+
   },
   {
     path: '/two',
@@ -29,7 +29,8 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Two
+    component: () => import('../views/Two.vue')
+
   },
   {
     path: '/three',
@@ -37,7 +38,8 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Three
+    component: () => import('../views/Three.vue')
+
   },
   {
     path: '/four',
@@ -45,7 +47,8 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Four
+    component: () => import('../views/Four.vue')
+
   },
   {
     path: '/five',
@@ -53,7 +56,8 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Five
+    component: () => import('../views/Five.vue')
+
   },
   {
     path: '/six',
@@ -61,7 +65,8 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Six
+    component: () => import('../views/Six.vue')
+
   }, {
     path: '/res',
     name: 'Res',

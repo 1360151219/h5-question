@@ -1,104 +1,27 @@
 <template>
   <div>
     <div class="bg">
-      <v-img :src="leave1" :lazy-src="leave1" class="zindex-10"></v-img>
-      <v-img :src="leave2" :lazy-src="leave2" class="leaves"></v-img>
-      <v-img
-        src="../assets/studying.svg"
-        lazy-src="../assets/studying.svg"
-        class="boy"
-        contain
-      ></v-img>
-      <v-img
-        src="../assets/light2.svg"
-        lazy-src="../assets/light2.svg"
-        class="zindex-100 light_2"
-      ></v-img>
-      <v-img
-        src="../assets/flsorescence.svg"
-        lazy-src="../assets/flsorescence.svg"
-        class="zindex-100 light_3"
-      ></v-img>
-      <v-img
-        src="../assets/flsorescence_change.svg"
-        lazy-src="../assets/flsorescence_change.svg"
-        class="zindex-100 light_3_reverse"
-        contain
-      ></v-img>
-      <!-- 题目 -->
-      <template
-        ><v-img
-          :src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5A.png'
-              : 'http://www.strk2.cn:3000/problems/5A.png'
-          "
-          :lazy-src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5A.png'
-              : 'http://www.strk2.cn:3000/problems/5A.png'
-          "
-          class="options option_1"
-          @click="clickToNext(2, 5, '/six', 1.628)"
-          max-width="30vh"
-          max-height="30vh"
-          contain
-        ></v-img>
-        <v-img
-          :src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5B.png'
-              : 'http://www.strk2.cn:3000/problems/5B.png'
-          "
-          :lazy-src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5B.png'
-              : 'http://www.strk2.cn:3000/problems/5B.png'
-          "
-          class="options option_2"
-          @click="clickToNext(3, 1, '/six', 1.628)"
-          max-width="23vh"
-          max-height="23vh"
-          contain
-        ></v-img>
-        <v-img
-          :src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5C.png'
-              : 'http://www.strk2.cn:3000/problems/5C.png'
-          "
-          :lazy-src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5C.png'
-              : 'http://www.strk2.cn:3000/problems/5C.png'
-          "
-          class="options option_3"
-          @click="clickToNext(0, 4, '/six', 1.628)"
-          max-width="23vh"
-          max-height="23vh"
-          contain
-        ></v-img>
-        <v-img
-          :src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5D.png'
-              : 'http://www.strk2.cn:3000/problems/5D.png'
-          "
-          :lazy-src="
-            isNew
-              ? 'http://www.strk2.cn:3000/problems/NEW5D.png'
-              : 'http://www.strk2.cn:3000/problems/5D.png'
-          "
-          class="options option_4"
-          @click="clickToNext(4, 3, '/six', 1.628)"
-          max-width="35vh"
-          max-height="35vh"
-          contain
-        ></v-img>
-      </template>
+      <img src="../assets/question/leave_five.svg" class="leave_cover" />
+      <img v-if="isNew" src="../assets/question/new_five.svg" class="q_one" />
+      <img v-else src="../assets/question/old_five.svg" class="q_one" />
+      <div
+        :class="isNew ? 'option_new_one' : 'option_one'"
+        @click="clickToNext(2, 5, '/six', 1.628)"
+      ></div>
+      <div
+        :class="isNew ? 'option_new_two' : 'option_two'"
+        @click="clickToNext(3, 1, '/six', 1.628)"
+      ></div>
+      <div
+        :class="isNew ? 'option_new_three' : 'option_three'"
+        @click="clickToNext(0, 4, '/six', 1.628)"
+      ></div>
+      <div
+        :class="isNew ? 'option_new_four' : 'option_four'"
+        @click="clickToNext(4, 3, '/six', 1.628)"
+      ></div>
+      <div class="back" @click="goback"></div>
     </div>
-    <Stairs />
-    <Problem :num="5" :problem="pro" />
   </div>
 </template>
 
@@ -106,173 +29,136 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import Stairs from "../components/stairs.vue";
-import Problem from "../components/problems.vue";
-@Component({
-  components: {
-    Stairs,
-    Problem,
-  },
-})
+import { recordRemainTime, ParseQuery } from "@/utils";
+@Component
 export default class Five extends Vue {
   @Prop()
   clickToNext!: (c: number, p: number, url: string, point: number) => void;
-  pro = "";
   @Prop()
   isNew!: boolean;
-  @Prop()
-  leave1!: string;
-  @Prop()
-  leave2!: string;
+
+  enterTime = 0;
+  leaveTime = 0;
   created() {
-    this.pro = this.isNew
-      ? "http://strk2.cn/problems/new/new-five.png"
-      : "http://strk2.cn/problems/old/old-five.png";
+    this.enterTime = new Date().getTime();
+
+    window.addEventListener("beforeunload", this.leaveHandler);
+  }
+  beforeDestroy() {
+    /* 停留时间 */
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    recordRemainTime({
+      id: 5,
+      time: remain,
+    });
+  }
+  goback() {
+    this.$router.go(-1);
+  }
+  async leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const data = { id: 5, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>
 <style lang="scss" scoped>
 .bg {
-  background-image: url(../assets/bg/study-2.svg);
-  background-position-y: -6vh;
-  background-size: cover;
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  box-shadow: inset 2px 2px 5px #333, inset -2px -2px 5px #333;
-  overflow: hidden;
-}
-.v-image {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 100vh;
   width: 100%;
+  background-image: url(../assets/cover/default_cover.svg);
+  background-size: cover;
+  background-position-y: -4vw;
+  background-repeat: repeat-y;
 }
-.leaves {
-  height: 100% !important;
-  pointer-events: none;
-  transform: scale(1.1);
-}
-.birds {
-  top: 43vh;
-  left: 43vw;
-}
-.owl {
-  top: 16vh;
-  left: 79vw;
-}
-.boy {
-  transform: scale(0.62);
-  left: 16vw !important;
-  bottom: -49vw !important;
-  top: auto !important;
-  z-index: 10;
-}
-.light_1 {
-  z-index: 100;
-  top: -8vh !important;
-  left: -8vw !important;
-  transform: scale(0.4);
-  pointer-events: none;
-}
-.light_2 {
-  z-index: 100;
-  top: 16vh !important;
-  left: 3vw !important;
-  transform: scale(1);
-  pointer-events: none;
-}
-@keyframes flash {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.light_3 {
-  z-index: 100;
-  top: 0vh !important;
-  left: -4vw !important;
-  transform: scale(1);
-  pointer-events: none;
-  animation: flash 1000ms infinite alternate;
-}
-.light_3_reverse {
-  z-index: 100;
-  top: -18vh !important;
-  left: -4vw !important;
-  transform: scale(1.5);
-  pointer-events: none;
-  animation: flash 1000ms infinite alternate-reverse;
-}
-@keyframes upanddown_1 {
-  0% {
-    transform: scale(0.9) translateY(-60px);
-  }
-  50% {
-    transform: scale(0.9) translateY(0px);
-  }
-  100% {
-    transform: scale(0.9) translateY(-60px);
-  }
-}
-@keyframes upanddown_2 {
-  0% {
-    transform: translateY(-60px);
-  }
-  50% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(-60px);
-  }
-}
-@keyframes upanddown_3 {
-  0% {
-    transform: scale(1.3) translateY(-60px);
-  }
-  50% {
-    transform: scale(1.3) translateY(0px);
-  }
-  100% {
-    transform: scale(1.3) translateY(-60px);
-  }
-}
-@keyframes upanddown_4 {
-  0% {
-    transform: translateY(-60px);
-  }
-  50% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(-60px);
-  }
-}
-.option_1 {
+.leave_cover {
   position: absolute;
-  top: 7vh;
-  left: 32vw;
-  animation: upanddown_1 8000ms infinite alternate;
+  height: 100vh;
+  width: 100vw;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%);
+  animation: leave 1s linear alternate;
 }
-.option_2 {
+.option_new_one {
+  height: 50px;
+  width: 214px;
   position: absolute;
-  top: 8vh;
-  left: -5vw;
-  animation: upanddown_2 6000ms infinite alternate;
+  top: 42%;
+  left: 47%;
+  transform: translate(-50%, -50%);
 }
-.option_3 {
+.option_new_two {
+  height: 50px;
+  width: 214px;
   position: absolute;
-  top: 37vh;
-  left: 50vw;
-  animation: upanddown_3 8000ms 200ms infinite alternate;
+  top: 52%;
+  left: 52%;
+  transform: translate(-50%, -50%);
 }
-.option_4 {
+.option_new_three {
+  height: 50px;
+  width: 214px;
   position: absolute;
-  top: 25vh;
-  left: -10vw;
-  animation: upanddown_4 12000ms infinite alternate;
+  top: 60%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+.option_new_four {
+  height: 50px;
+  width: 214px;
+  position: absolute;
+  top: 70%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+}
+.option_one {
+  height: 50px;
+  width: 214px;
+  position: absolute;
+  top: 42%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+.option_two {
+  height: 50px;
+  width: 214px;
+  position: absolute;
+  top: 51%;
+  left: 53%;
+  transform: translate(-50%, -50%);
+}
+.option_three {
+  height: 50px;
+  width: 214px;
+  position: absolute;
+  top: 60%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+}
+.option_four {
+  height: 50px;
+  width: 214px;
+  position: absolute;
+  top: 70%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+}
+.back {
+  position: absolute;
+
+  bottom: 16vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 60px;
+  width: 100px;
 }
 </style>

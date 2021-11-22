@@ -1,52 +1,42 @@
 <template>
-  <v-container>
+  <div>
     <audio id="music" autoplay muted>
-      <source src="http://strk2.cn/music/Calm.mp3" type="audio/mpeg" />
+      <source
+        src="https://static2.pivotstudio.cn/2021-h5-questions/music/Calm.mp3"
+        type="audio/mpeg"
+      />
     </audio>
+    <div
+      class="loading_music_shift"
+      @click="musicToggle"
+      :class="isPlay ? 'rotate' : ''"
+    ></div>
     <div id="app">
-      <div class="title" v-show="$route.fullPath !== '/res'">
-        震惊!你的华中大形象竟是...
-      </div>
-      <v-img
-        src="./assets/black_music.svg"
-        contain
-        height="6vh"
-        width="6vh"
-        class="music"
-        style="top: 7vh; z-index: 100"
-        @click="musicToggle"
-        v-if="$route.fullPath !== '/res'"
-      ></v-img>
       <transition name="fade">
-        <keep-alive>
-          <router-view
-            :clickToNext="clickToNext"
-            :num="num"
-            :isNew="isNew"
-            :isMale="isMale"
-            :c="characters"
-            :p="places"
-            :leave1="leave1"
-            :leave2="leave2"
-            @music:change="musicToggle"
-            @newOrOld="newOrOld"
-            @genderChoose="genderChoose"
-          />
-        </keep-alive>
+        <router-view
+          :clickToNext="clickToNext"
+          :num="num"
+          :isNew="isNew"
+          :isMale="isMale"
+          :c="characters"
+          :p="places"
+          @music:change="musicToggle"
+          @newOrOld="newOrOld"
+          @genderChoose="genderChoose"
+        />
       </transition>
     </div>
-  </v-container>
+  </div>
 </template>
 <script lang="ts" type="module">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Watch } from "vue-property-decorator";
+import { recordRemainTime, ParseQuery } from "@/utils";
 @Component
 export default class App extends Vue {
   isShow = false;
   timer = -1;
   clickToNext(c: number, p: number, url: string, point: number) {
-    console.log(this.timer);
     if (this.timer !== -1) clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.characters[c] += point;
@@ -56,7 +46,7 @@ export default class App extends Vue {
     }, 600);
   }
 
-  isPlay = false;
+  isPlay = true;
   musicToggle() {
     const music = document.getElementById("music") as HTMLVideoElement;
     if (music) {
@@ -69,7 +59,8 @@ export default class App extends Vue {
     }
   }
   /* 数据啊啊啊 */
-  isNew = false;
+  isNew = true;
+  // isNew=false
   isMale = false;
   characters = [0, 0, 0, 0, 0, 0];
   places = [0, 0, 0, 0, 0, 0];
@@ -82,58 +73,45 @@ export default class App extends Vue {
   genderChoose(b: boolean) {
     this.isMale = b;
   }
-  // colors = [
-  //   "#DCAC6D",
-  //   "#ACC2D2",
-  //   "#CF948E",
-  //   "#9AB7A4",
-  //   "#D6C8D3",
-  //   "#A7A4A1",
-  //   "#AE9E8E",
-  //   "#ACB484",
-  //   "#5EC0B8",
-  //   "#ECB7C0",
-  //   "#5A8AC8",
-  //   "#3E8C75",
-  //   "#60B3E5",
-  //   "#6EAF89",
-  // ];
   get randomNum() {
     return Math.ceil(Math.random() * 14);
   }
   num = -1;
-  @Watch("$route")
-  routeChange() {
-    this.num = this.randomNum;
-    if (this.$route.fullPath === "/res")
-      document.body.style.backgroundColor = "#ffffff";
-    else {
-      document.body.style.backgroundColor = "rgb(75, 153, 117)";
-    }
-  }
-  leave1 = "";
-  leave2 = "";
+  enterTime = 0;
+  leaveTime = 0;
   created() {
-    const loading = document.getElementById("load_wrap");
-    var newImg = new Image();
-    newImg.src = `http://strk2.cn:3000/hust_img/leaves1.svg`;
-    newImg.onload = () => {
-      // 图片加载成功后把地址给原来的img
-      this.leave1 = newImg.src;
-    };
-    var newImg2 = new Image();
-    newImg2.src = `http://strk2.cn:3000/hust_img/leaves2.svg`;
-    newImg2.onload = () => {
-      // 图片加载成功后把地址给原来的img
-      this.leave2 = newImg2.src;
-    };
+    /* 是否二维码进入 */
+    const isQr = "qr" in this.$route.query;
     setTimeout(() => {
-      if (loading) loading.remove();
-      const music = document.getElementById("music") as HTMLVideoElement;
-      if (music.paused) {
-        this.musicToggle();
+      if (isQr) {
+        recordRemainTime({
+          id: 99,
+          time: 0,
+          rqtype: 1,
+        });
+      } else {
+        recordRemainTime({
+          id: 99,
+          time: 0,
+          rqtype: 0,
+        });
       }
-    }, 5000);
+    }, 0);
+
+    /* 调用访问量的接口 */
+    /* 停留时间 */
+    this.enterTime = new Date().getTime();
+    /* ............................... */
+    window.addEventListener("beforeunload", this.leaveHandler);
+  }
+  leaveHandler() {
+    this.leaveTime = new Date().getTime();
+    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const data = { id: 8, time: remain };
+    window.navigator.sendBeacon("/api" + ParseQuery(data));
+  }
+  destroyed() {
+    window.removeEventListener("beforeunload", this.leaveHandler);
   }
 }
 </script>
@@ -155,11 +133,11 @@ export default class App extends Vue {
 }
 .fade-enter-active {
   will-change: transform;
-  animation: blur 4000ms ease-out reverse;
+  animation: blur 2000ms ease-out reverse;
 }
 .fade-leave-active {
   will-change: transform;
-  animation: blur 400ms ease;
+  animation: blur 500ms ease;
 }
 @keyframes blur {
   0% {
@@ -168,5 +146,26 @@ export default class App extends Vue {
   100% {
     opacity: 0;
   }
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.loading_music_shift {
+  position: absolute;
+  height: 33px;
+  width: 33px;
+  top: 24px;
+  right: 14px;
+  z-index: 10;
+  background-image: url(./assets/loading/loading_music_shift.svg);
+}
+.rotate {
+  animation: rotate linear 4s infinite;
 }
 </style>
