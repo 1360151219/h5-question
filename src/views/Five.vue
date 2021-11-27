@@ -154,8 +154,7 @@ export default class Five extends Vue {
 }
 .back {
   position: absolute;
-
-  bottom: 16vh;
+  bottom: 12vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

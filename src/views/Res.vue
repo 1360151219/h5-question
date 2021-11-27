@@ -11,7 +11,7 @@
       </div>
       <div key="2" v-show="!loading">
         <img
-          src="../assets/321.jpg"
+          src="../assets/poster/55.png"
           :class="change ? 'change_poster' : 'poster'"
           @touchstart="touchStart"
           @touchmove="touchMove"
@@ -167,7 +167,7 @@ export default class Res extends Vue {
 .poster {
   position: absolute;
   left: 0px;
-  top: -70px;
+  top: -10vh;
   width: 100vw;
   z-index: 1;
 }
@@ -184,7 +184,7 @@ export default class Res extends Vue {
   position: absolute;
   bottom: -100vh;
   left: 34vw;
-  height: 60px;
+  height: 70px;
   width: 100px;
   z-index: 100;
 }

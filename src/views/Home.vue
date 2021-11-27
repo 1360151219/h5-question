@@ -23,7 +23,7 @@
           <div class="btn_mask"></div>
         </div>
         <div class="cover_click">
-          <img src="../assets/cover/cover_click.svg" alt="" />
+          <img src="../assets/cover/cover_click.svg"/>
         </div>
       </v-container>
       <div
@@ -121,7 +121,6 @@ export default class Home extends Vue {
     const event = ev || window.event;
     const target = event.target as HTMLElement;
     const masks = document.querySelectorAll(".btn_mask");
-    console.log(target.className);
     if (!target?.className.includes("btn_mask")) {
       if (this.isClick) return;
       for (let mask of masks) {

@@ -152,7 +152,7 @@ export default class Three extends Vue {
 }
 .back {
   position: absolute;
-  bottom: 16vh;
+  bottom: 13vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

@@ -43,7 +43,7 @@ export default class App extends Vue {
       this.places[p] += point;
       this.$router.push(url);
       this.timer = -1;
-    }, 600);
+    }, 500);
   }
 
   isPlay = true;

@@ -164,7 +164,7 @@ export default class Six extends Vue {
 }
 .back {
   position: absolute;
-  bottom: 15vh;
+  bottom: 13vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;
