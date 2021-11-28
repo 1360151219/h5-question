@@ -23,7 +23,7 @@
           <div class="btn_mask"></div>
         </div>
         <div class="cover_click">
-          <img src="../assets/cover/cover_click.svg"/>
+          <img src="../assets/cover/cover_click.svg" />
         </div>
       </v-container>
       <div
@@ -62,10 +62,6 @@ import { Prop } from "vue-property-decorator";
 import { recordRemainTime, ParseQuery } from "@/utils";
 @Component
 export default class Home extends Vue {
-  @Prop()
-  leave1!: string;
-  @Prop()
-  leave2!: string;
   isNew = false;
   loading = true;
   chooseNew(b: boolean) {
@@ -151,10 +147,10 @@ export default class Home extends Vue {
   }
 }
 .fadeChange-leave-active {
-  animation: blur 600ms ease-out;
+  animation: blur 400ms ease-out;
 }
 .fadeChange-enter-active {
-  animation: blur 1000ms ease-out reverse;
+  animation: blur 600ms ease-out reverse;
 }
 .home_page {
   position: absolute;
@@ -336,6 +332,7 @@ export default class Home extends Vue {
 }
 .back {
   position: absolute;
+  top: auto !important;
   bottom: 17vh;
   left: 50%;
   transform: translateX(-50%);
