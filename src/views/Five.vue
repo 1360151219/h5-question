@@ -2,8 +2,8 @@
   <div>
     <div class="bg">
       <img src="../assets/question/leave_five.svg" class="leave_cover" />
-      <img v-if="isNew" src="../assets/question/new_five.svg" class="q_one" />
-      <img v-else src="../assets/question/old_five.svg" class="q_one" />
+      <img v-if="isNew" src="../assets/question/new_five.png" class="q_one" />
+      <img v-else src="../assets/question/old_five.png" class="q_one" />
       <div
         :class="isNew ? 'option_new_one' : 'option_one'"
         @click="clickToNext(2, 5, '/six', 1.628)"

@@ -2,8 +2,8 @@
   <div>
     <div class="bg">
       <img src="../assets/question/leave_one.svg" class="leave_cover" />
-      <img v-if="isNew" src="../assets/question/new_one.svg" class="q_one" />
-      <img v-else src="../assets/question/old_one.svg" class="q_one" />
+      <img v-if="isNew" src="../assets/question/new_one.png" class="q_one" />
+      <img v-else src="../assets/question/old_one.png" class="q_one" />
       <div class="option_one" @click="clickToNext(1, 4, '/two', 1.323)"></div>
       <div class="option_two" @click="clickToNext(2, 5, '/two', 1.323)"></div>
       <div class="option_three" @click="clickToNext(3, 2, '/two', 1.323)"></div>
@@ -116,6 +116,6 @@ export default class One extends Vue {
   left: 50%;
   transform: translateX(-50%);
   height: 60px;
-  width: 100px;  
+  width: 100px;
 }
 </style>

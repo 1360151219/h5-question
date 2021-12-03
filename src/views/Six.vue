@@ -12,8 +12,8 @@
         class="leave_cover"
       />
 
-      <img v-if="isNew" src="../assets/question/new_six.svg" class="q_one" />
-      <img v-else src="../assets/question/old_six.svg" class="q_one" />
+      <img v-if="isNew" src="../assets/question/new_six.png" class="q_one" />
+      <img v-else src="../assets/question/old_six.png" class="q_one" />
       <div
         :class="isNew ? 'option_new_one' : 'option_one'"
         @click="clickToNext(4, 5, '/res', 1.732)"

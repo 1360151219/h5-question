@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="bg">
-      <img src="../assets/question/leave_two.svg" class="leave_cover" />
-      <img v-if="isNew" src="../assets/question/new_two.svg" class="q_one" />
-      <img v-else src="../assets/question/old_two.svg" class="q_one" />
+      <img src="../assets/question/leave_two.png" class="leave_cover" />
+      <img v-if="isNew" src="../assets/question/new_two.png" class="q_one" />
+      <img v-else src="../assets/question/old_two.png" class="q_one" />
       <div
         :class="isNew ? 'option_new_one' : 'option_one'"
         @click="clickToNext(1, 0, '/three', 1.623)"
