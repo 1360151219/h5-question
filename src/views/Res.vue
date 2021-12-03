@@ -11,7 +11,7 @@
       </div>
       <div key="2" v-show="!loading">
         <img
-          src="../assets/poster/55.png"
+          :src="url"
           :class="change ? 'change_poster' : 'poster'"
           @touchstart="touchStart"
           @touchmove="touchMove"
@@ -82,7 +82,7 @@ export default class Res extends Vue {
       gender = "";
     }
     var newImg = new Image();
-    newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/poster/${cMax}${pMax}${gender}.jpg`;
+    newImg.src = `https://static2.pivotstudio.cn/2021-h5-questions/poster/${cMax}${pMax}${gender}.png`;
     newImg.onload = () => {
       // 图片加载成功后把地址给原来的img
       let loadingtime = Math.random() * 3000 + 3000;
