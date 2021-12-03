@@ -158,8 +158,8 @@ export default class App extends Vue {
 
 .loading_music_shift {
   position: absolute;
-  height: 33px;
-  width: 33px;
+  height: 35px;
+  width: 35px;
   top: 24px;
   right: 14px;
   z-index: 10;

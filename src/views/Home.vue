@@ -16,7 +16,7 @@
       <v-container v-show="!loading && !isGender && !isNew" key="2">
         <div class="cover_container">
           <img src="../assets/cover/Pivot_Studio_logo.png" class="logo" />
-          <img src="../assets/cover/cover.png" class="cover" />
+          <img src="../assets/cover/cover.svg" class="cover" />
         </div>
         <div class="cover_btn">
           <img src="../assets/cover/start_btn.svg" />
@@ -221,7 +221,7 @@ export default class Home extends Vue {
 .cover {
   margin-top: 4vh;
   transform: scale(1.5);
-  height: 80vh;
+  height: 50vh;
 }
 .cover_btn {
   // margin-top: 20px;
