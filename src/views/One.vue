@@ -4,10 +4,22 @@
       <img src="../assets/question/leave_one.svg" class="leave_cover" />
       <img v-if="isNew" src="../assets/question/new_one.png" class="q_one" />
       <img v-else src="../assets/question/old_one.png" class="q_one" />
-      <div class="option_one" @click="clickToNext(1, 4, '/two', 1.323)"></div>
-      <div class="option_two" @click="clickToNext(2, 5, '/two', 1.323)"></div>
-      <div class="option_three" @click="clickToNext(3, 2, '/two', 1.323)"></div>
-      <div class="option_four" @click="clickToNext(1, 2, '/two', 1.323)"></div>
+      <div
+        :class="!isNew ? 'option_new_one' : 'option_one'"
+        @click="clickToNext(1, 4, '/two', 1.323)"
+      ></div>
+      <div
+        :class="!isNew ? 'option_new_two' : 'option_two'"
+        @click="clickToNext(2, 5, '/two', 1.323)"
+      ></div>
+      <div
+        :class="!isNew ? 'option_new_three' : 'option_three'"
+        @click="clickToNext(3, 2, '/two', 1.323)"
+      ></div>
+      <div
+        :class="!isNew ? 'option_new_four' : 'option_four'"
+        @click="clickToNext(1, 2, '/two', 1.323)"
+      ></div>
       <div class="back" @click="goback"></div>
     </div>
   </div>
@@ -71,26 +83,56 @@ export default class One extends Vue {
 }
 .leave_cover {
   position: absolute;
-  height: 100%;
   width: 100%;
   left: 50%;
-  bottom: 0;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
+}
+.option_new_one {
+  height: 60px;
+  width: 230px;
+  position: absolute;
+  top: 43%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+.option_new_two {
+  height: 60px;
+  width: 230px;
+  position: absolute;
+  top: 52%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+}
+.option_new_three {
+  height: 60px;
+  width: 230px;
+  position: absolute;
+  top: 62%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+}
+.option_new_four {
+  height: 60px;
+  width: 240px;
+  position: absolute;
+  top: 73%;
+  left: 53%;
+  transform: translate(-50%, -50%);
 }
 .option_one {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 42%;
+  top: 39%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_two {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
-  top: 52%;
+  top: 49%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -106,13 +148,13 @@ export default class One extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 71%;
+  top: 72%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
 .back {
   position: absolute;
-  bottom: 12vh;
+  bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

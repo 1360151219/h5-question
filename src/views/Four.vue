@@ -83,10 +83,8 @@ export default class Four extends Vue {
 }
 .leave_cover {
   position: absolute;
-  height: 100%;
   width: 100%;
   left: 50%;
-  bottom: 0;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
 }
@@ -108,31 +106,31 @@ export default class Four extends Vue {
 }
 .option_new_three {
   height: 50px;
-  width: 214px;
+  width: 240px;
   position: absolute;
-  top: 60%;
-  left: 47%;
+  top: 62%;
+  left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_new_four {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
-  top: 70%;
+  top: 72%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .option_one {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
   top: 43%;
-  left: 47%;
+  left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_two {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
   top: 52%;
   left: 53%;
@@ -140,7 +138,7 @@ export default class Four extends Vue {
 }
 .option_three {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
   top: 62%;
   left: 48%;
@@ -148,15 +146,15 @@ export default class Four extends Vue {
 }
 .option_four {
   height: 50px;
-  width: 214px;
+  width: 240px;
   position: absolute;
-  top: 70%;
+  top: 72%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .back {
   position: absolute;
-  bottom: 13vh;
+  bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

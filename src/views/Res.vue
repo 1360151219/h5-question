@@ -184,7 +184,7 @@ export default class Res extends Vue {
   position: absolute;
   bottom: -100vh;
   left: 34vw;
-  height: 100px;
+  height: 110px;
   width: 100px;
   z-index: 100;
 }

@@ -81,10 +81,8 @@ export default class Two extends Vue {
 }
 .leave_cover {
   position: absolute;
-  height: 100%;
   width: 100%;
   left: 50%;
-  bottom: 0;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
 }
@@ -100,7 +98,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 53%;
+  top: 55%;
   left: 52%;
   transform: translate(-50%, -50%);
 }
@@ -108,7 +106,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 63%;
+  top: 65%;
   left: 47%;
   transform: translate(-50%, -50%);
 }
@@ -116,7 +114,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 70%;
+  top: 74%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -124,21 +122,21 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 47%;
+  top: 45%;
   left: 47%;
   transform: translate(-50%, -50%);
 }
 .option_two {
-  height: 50px;
-  width: 214px;
+  height: 60px;
+  width: 230px;
   position: absolute;
-  top: 56%;
+  top: 55%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
 .option_three {
   height: 50px;
-  width: 214px;
+  width: 240px;
   position: absolute;
   top: 65%;
   left: 48%;
@@ -146,15 +144,15 @@ export default class Two extends Vue {
 }
 .option_four {
   height: 50px;
-  width: 214px;
+  width: 250px;
   position: absolute;
-  top: 73%;
+  top: 74%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .back {
   position: absolute;
-  bottom: 12vh;
+  bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;

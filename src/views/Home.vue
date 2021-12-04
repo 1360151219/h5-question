@@ -219,12 +219,11 @@ export default class Home extends Vue {
   margin-left: -2.5vw;
 }
 .cover {
-  margin-top: 4vh;
-  transform: scale(1.5);
-  height: 50vh;
+  transform: scale(1);
+  width: 100vw;
 }
 .cover_btn {
-  // margin-top: 20px;
+  margin-top: -72px;
   margin-bottom: 13px;
   position: relative;
 }
@@ -253,7 +252,7 @@ export default class Home extends Vue {
   height: 100vh;
   width: 100%;
   background-image: url(../assets/cover/gender_cover.svg);
-  background-position-y: 0vw;
+  background-position-y: -8vw;
   background-size: cover;
   background-repeat: repeat-y;
   animation: small 1s linear alternate;
@@ -267,7 +266,7 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 74vh;
+    top: 72vh;
     left: 54%;
     transform: translate(-50%, -53%);
   }
@@ -325,8 +324,8 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 69%;
-    left: 54%;
+    top: 68%;
+    left: 53%;
     transform: translate(-50%, -53%);
   }
 }

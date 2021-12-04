@@ -89,10 +89,8 @@ export default class Six extends Vue {
 }
 .leave_cover {
   position: absolute;
-  height: 100%;
   width: 100%;
   left: 50%;
-  bottom: 0;
   z-index: 2;
   pointer-events: none;
   transform: translate(-50%);
@@ -100,71 +98,71 @@ export default class Six extends Vue {
 }
 .option_new_one {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
-  top: 45%;
-  left: 47%;
+  top: 44%;
+  left: 49%;
   transform: translate(-50%, -50%);
 }
 .option_new_two {
-  height: 50px;
-  width: 214px;
+  height: 60px;
+  width: 230px;
   position: absolute;
-  top: 55%;
+  top: 54%;
   left: 52%;
   transform: translate(-50%, -50%);
 }
 .option_new_three {
   height: 50px;
-  width: 214px;
+  width: 240px;
   position: absolute;
-  top: 63%;
-  left: 47%;
+  top: 64%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 .option_new_four {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
-  top: 71%;
+  top: 73%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .option_one {
-  height: 50px;
-  width: 214px;
+  height: 60px;
+  width: 230px;
   position: absolute;
   top: 45%;
-  left: 47%;
+  left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_two {
-  height: 50px;
-  width: 214px;
+  height: 60px;
+  width: 240px;
   position: absolute;
-  top: 54%;
+  top: 56%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
 .option_three {
   height: 50px;
-  width: 214px;
+  width: 230px;
   position: absolute;
-  top: 62%;
+  top: 65%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_four {
-  height: 50px;
-  width: 214px;
+  height: 60px;
+  width: 240px;
   position: absolute;
-  top: 71%;
+  top: 74%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .back {
   position: absolute;
-  bottom: 13vh;
+  bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
   height: 60px;
