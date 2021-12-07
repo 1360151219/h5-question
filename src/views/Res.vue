@@ -12,7 +12,7 @@
       <div key="2" v-show="!loading">
         <img
           :src="url"
-          :class="change ? 'change_poster' : 'poster'"
+          class="poster"
           @touchstart="touchStart"
           @touchmove="touchMove"
           @touchend="touchEnd"
@@ -71,13 +71,11 @@ export default class Res extends Vue {
       saved: 1,
     });
   }
-  change = false;
   created() {
     this.enterTime = new Date().getTime();
     let cMax = this.getMax(this.c);
     let pMax = this.getMax(this.p);
     let gender = this.isMale ? "0" : "1";
-    if (cMax === 3 && pMax === 3 && !gender) this.change = true;
     if (cMax === 5) {
       gender = "";
     }
@@ -107,6 +105,11 @@ export default class Res extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.poster_container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
 #load_wrap {
   position: absolute;
   left: 0;
@@ -167,18 +170,10 @@ export default class Res extends Vue {
 .poster {
   position: absolute;
   left: 0px;
-  top: -8vh;
+  bottom: 0;
+  height: 100%;
   width: 100vw;
   z-index: 1;
-}
-.change_poster {
-  position: absolute;
-  left: -34px;
-  top: -20px;
-  height: 100vh;
-  width: 102%;
-  z-index: 1;
-  transform: scale(1.12);
 }
 .btn {
   position: absolute;

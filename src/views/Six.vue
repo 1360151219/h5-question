@@ -90,6 +90,7 @@ export default class Six extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
+  bottom: 0;
   left: 50%;
   z-index: 2;
   pointer-events: none;

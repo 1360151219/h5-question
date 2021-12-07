@@ -5,8 +5,8 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://120.27.239.160",
-        secure: false,
+        target: "https://husthole.pivotstudio.cn",
+        secure: true,
         changeOrigin: true,
       },
     },
