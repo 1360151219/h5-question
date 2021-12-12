@@ -135,6 +135,9 @@ export default class Home extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.container {
+  padding: 0;
+}
 .remove {
   opacity: 0;
 }
@@ -207,7 +210,6 @@ export default class Home extends Vue {
   font-size: 21.0938px;
   line-height: 30px;
   z-index: 2;
-
   color: #ffffff;
 }
 .logo {
@@ -215,15 +217,13 @@ export default class Home extends Vue {
   top: 3vh;
   left: 5vw;
 }
-.cover_container {
-  margin-left: -2.5vw;
-}
 .cover {
   transform: scale(1);
   width: 100vw;
+  margin-top: 15vh;
 }
 .cover_btn {
-  margin-top: -72px;
+  margin-top: -60px;
   margin-bottom: 13px;
   position: relative;
 }
@@ -309,6 +309,7 @@ export default class Home extends Vue {
     position: absolute;
     left: 50%;
     top: 44%;
+    z-index: -1;
     transform: translate(-50%, -50%);
     width: 63vw;
   }

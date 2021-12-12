@@ -22,7 +22,9 @@ body {
   height: 100%;
   width: 100%;
 }
-
+.bg {
+  z-index: 0;
+}
 @keyframes small {
   0% {
     transform: scale(1.2);
@@ -56,6 +58,7 @@ body {
   }
 }
 .q_one {
+  z-index: -1;
   position: absolute;
   left: 50%;
   top: 44%;

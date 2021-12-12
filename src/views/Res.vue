@@ -177,7 +177,7 @@ export default class Res extends Vue {
 }
 .btn {
   position: absolute;
-  bottom: -100vh;
+  bottom: 0vh;
   left: 34vw;
   height: 110px;
   width: 100px;
