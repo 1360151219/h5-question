@@ -38,7 +38,7 @@ export default class One extends Vue {
   @Prop()
   isNew!: boolean;
   @Prop()
-  isQr!:boolean
+  isQr!: boolean;
   enterTime = 0;
   leaveTime = 0;
   created() {
@@ -51,9 +51,9 @@ export default class One extends Vue {
   beforeDestroy() {
     /* 停留时间 */
     this.leaveTime = new Date().getTime();
-    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const remain = Math.ceil((this.leaveTime - this.enterTime) / 1000);
     recordRemainTime({
-      page_id: '1',
+      page_id: "1",
       time: remain,
       access_type: this.isQr ? 1 : 0,
       request_id: uuid,
@@ -62,9 +62,9 @@ export default class One extends Vue {
 
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
-    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const remain = Math.ceil((this.leaveTime - this.enterTime) / 1000);
     const data = {
-      page_id: '1',
+      page_id: "1",
       time: remain,
       access_type: this.isQr ? 1 : 0,
       request_id: uuid,

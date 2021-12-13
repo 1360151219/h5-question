@@ -57,9 +57,9 @@ export default class Six extends Vue {
   beforeDestroy() {
     /* 停留时间 */
     this.leaveTime = new Date().getTime();
-    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const remain = Math.ceil((this.leaveTime - this.enterTime) / 1000);
     recordRemainTime({
-      page_id: '6',
+      page_id: "6",
       time: remain,
       access_type: this.isQr ? 1 : 0,
       request_id: uuid,
@@ -70,9 +70,9 @@ export default class Six extends Vue {
   }
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
-    const remain = (this.leaveTime - this.enterTime) / 1000;
+    const remain = Math.ceil((this.leaveTime - this.enterTime) / 1000);
     const data = {
-      page_id: '6',
+      page_id: "6",
       time: remain,
       access_type: this.isQr ? 1 : 0,
       request_id: uuid,
