@@ -94,9 +94,9 @@ export default class Res extends Vue {
   }
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
-    const remain = Math.ceil((this.leaveTime - this.enterTime) / 1000);
+    const remain = this.leaveTime - this.enterTime;
     const data = {
-      page_id: "7",
+      page_id: "page_7",
       time: remain,
       access_type: this.isQr ? 1 : 0,
       request_id: uuid,
