@@ -20,6 +20,7 @@
           :isMale="isMale"
           :c="characters"
           :p="places"
+          :isQr="isQr"
           @music:change="musicToggle"
           @newOrOld="newOrOld"
           @genderChoose="genderChoose"
@@ -31,7 +32,7 @@
 <script lang="ts" type="module">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { recordRemainTime, ParseQuery } from "@/utils";
+import { recordAccessType, recordRemainTime, ParseQuery, uuid } from "@/utils";
 @Component
 export default class App extends Vue {
   isShow = false;
@@ -45,7 +46,6 @@ export default class App extends Vue {
       this.timer = -1;
     }, 500);
   }
-
   isPlay = true;
   musicToggle() {
     const music = document.getElementById("music") as HTMLVideoElement;
@@ -58,15 +58,13 @@ export default class App extends Vue {
       this.isPlay = !this.isPlay;
     }
   }
-  /* 数据啊啊啊 */
+  /* 数据 */
   isNew = true;
-  // isNew=false
   isMale = false;
   characters = [0, 0, 0, 0, 0, 0];
   places = [0, 0, 0, 0, 0, 0];
   //幼儿园园长 吃货 刷夜人 宝藏男孩 小甜甜 大橘
   // 韵酒 喻家山 东九  梧桐语  集贸  科技楼
-
   newOrOld(b: boolean) {
     this.isNew = b;
   }
@@ -79,36 +77,30 @@ export default class App extends Vue {
   num = -1;
   enterTime = 0;
   leaveTime = 0;
+  isQr = false;
   created() {
     /* 是否二维码进入 */
-    const isQr = "qr" in this.$route.query;
+    this.isQr = "qr" in this.$route.query;
     setTimeout(() => {
-      if (isQr) {
-        recordRemainTime({
-          id: 99,
-          time: 0,
-          rqtype: 1,
-        });
-      } else {
-        recordRemainTime({
-          id: 99,
-          time: 0,
-          rqtype: 0,
-        });
-      }
+      recordAccessType({
+        request_id: uuid,
+        access_type: this.isQr ? 1 : 0,
+      });
     }, 0);
-
-    /* 调用访问量的接口 */
     /* 停留时间 */
     this.enterTime = new Date().getTime();
-    /* ............................... */
     window.addEventListener("beforeunload", this.leaveHandler);
   }
   leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    const data = { id: 8, time: remain };
-    window.navigator.sendBeacon("/api" + ParseQuery(data));
+    const data = {
+      page_id: 8,
+      time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
+    };
+    window.navigator.sendBeacon("/api/stay" + data);
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);

@@ -59,9 +59,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import { recordRemainTime, ParseQuery } from "@/utils";
+import { recordRemainTime, uuid } from "@/utils";
 @Component
 export default class Home extends Vue {
+  @Prop()
+  isQr!: boolean;
   isNew = false;
   loading = true;
   chooseNew(b: boolean) {
@@ -99,15 +101,22 @@ export default class Home extends Vue {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
     recordRemainTime({
-      id: 0,
+      page_id: 0,
       time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
     });
   }
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    const data = { id: 0, time: remain };
-    window.navigator.sendBeacon("/api" + ParseQuery(data));
+    const data = {
+      page_id: 0,
+      time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
+    };
+    window.navigator.sendBeacon("/api/stay" + data);
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);
@@ -252,7 +261,7 @@ export default class Home extends Vue {
   height: 100vh;
   width: 100%;
   background-image: url(../assets/cover/gender_cover.svg);
-  background-position-y: -8vw;
+  background-position-y: 0vw;
   background-size: cover;
   background-repeat: repeat-y;
   animation: small 1s linear alternate;

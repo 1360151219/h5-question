@@ -28,13 +28,15 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 
-import { recordRemainTime, ParseQuery } from "@/utils";
+import { recordRemainTime, uuid } from "@/utils";
 @Component
 export default class Three extends Vue {
   @Prop()
   clickToNext!: (c: number, p: number, url: string, point: number) => void;
   @Prop()
   isNew!: boolean;
+  @Prop()
+  isQr!: boolean;
   enterTime = 0;
   leaveTime = 0;
   created() {
@@ -47,8 +49,10 @@ export default class Three extends Vue {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
     recordRemainTime({
-      id: 3,
+      page_id: 3,
       time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
     });
   }
   goback() {
@@ -57,8 +61,13 @@ export default class Three extends Vue {
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    const data = { id: 3, time: remain };
-    window.navigator.sendBeacon("/api" + ParseQuery(data));
+    const data = {
+      page_id: 3,
+      time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
+    };
+    window.navigator.sendBeacon("/api/stay" + data);
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);

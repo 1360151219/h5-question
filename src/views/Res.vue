@@ -26,7 +26,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import { recordRemainTime, ParseQuery } from "@/utils";
+import { uuid, recordPosterSaved } from "@/utils";
 @Component
 export default class Res extends Vue {
   @Prop()
@@ -35,6 +35,8 @@ export default class Res extends Vue {
   p!: number[];
   @Prop()
   isMale!: boolean;
+  @Prop()
+  isQr!: boolean;
   getMax(arr: Array<number>): number {
     let max = 0;
     let index = 0;
@@ -65,10 +67,9 @@ export default class Res extends Vue {
   }
   longpress() {
     this.timer = 0;
-    recordRemainTime({
-      id: 99,
-      time: 0,
-      saved: 1,
+    recordPosterSaved({
+      request_id: uuid,
+      is_poster_saved: true,
     });
   }
   created() {
@@ -90,14 +91,17 @@ export default class Res extends Vue {
       }, loadingtime);
     };
     window.addEventListener("beforeunload", this.leaveHandler);
-    /*
-     */
   }
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = (this.leaveTime - this.enterTime) / 1000;
-    const data = { id: 7, time: remain };
-    window.navigator.sendBeacon("/api" + ParseQuery(data));
+    const data = {
+      page_id: 7,
+      time: remain,
+      access_type: this.isQr ? 1 : 0,
+      request_id: uuid,
+    };
+    window.navigator.sendBeacon("/api/stay" + data);
   }
   destroyed() {
     window.removeEventListener("beforeunload", this.leaveHandler);
