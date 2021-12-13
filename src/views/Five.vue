@@ -90,7 +90,7 @@ export default class Five extends Vue {
 .leave_cover {
   position: absolute;
   width: 100vw;
-  bottom: 0;
+  bottom: -8vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
@@ -120,10 +120,10 @@ export default class Five extends Vue {
   transform: translate(-50%, -50%);
 }
 .option_new_four {
-  height: 60px;
+  height: 70px;
   width: 230px;
   position: absolute;
-  top: 72%;
+  top: 73%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -131,7 +131,7 @@ export default class Five extends Vue {
   height: 50px;
   width: 230px;
   position: absolute;
-  top: 41%;
+  top: 38%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
@@ -139,7 +139,7 @@ export default class Five extends Vue {
   height: 50px;
   width: 230px;
   position: absolute;
-  top: 51%;
+  top: 48%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
@@ -147,7 +147,7 @@ export default class Five extends Vue {
   height: 50px;
   width: 230px;
   position: absolute;
-  top: 60%;
+  top: 58%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
@@ -155,7 +155,7 @@ export default class Five extends Vue {
   height: 50px;
   width: 230px;
   position: absolute;
-  top: 71%;
+  top: 68%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -164,7 +164,7 @@ export default class Five extends Vue {
   bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px;
   width: 100px;
+  height: 70px;
 }
 </style>

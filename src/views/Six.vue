@@ -9,7 +9,7 @@
       <img
         v-else
         src="../assets/question/leave_six_old.svg"
-        class="leave_cover"
+        class="leave_cover old_leave_cover"
       />
 
       <img v-if="isNew" src="../assets/question/new_six.png" class="q_one" />
@@ -106,6 +106,9 @@ export default class Six extends Vue {
   transform: translate(-50%);
   animation: leave 1s linear alternate;
 }
+.old_leave_cover {
+  bottom: -10vh !important;
+}
 .option_new_one {
   height: 50px;
   width: 230px;
@@ -142,7 +145,7 @@ export default class Six extends Vue {
   height: 60px;
   width: 230px;
   position: absolute;
-  top: 45%;
+  top: 40%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
@@ -150,15 +153,15 @@ export default class Six extends Vue {
   height: 60px;
   width: 240px;
   position: absolute;
-  top: 56%;
+  top: 50%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
 .option_three {
-  height: 50px;
+  height: 60px;
   width: 230px;
   position: absolute;
-  top: 65%;
+  top: 61%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
@@ -166,7 +169,7 @@ export default class Six extends Vue {
   height: 60px;
   width: 240px;
   position: absolute;
-  top: 74%;
+  top: 70%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -175,7 +178,7 @@ export default class Six extends Vue {
   bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px;
+  height: 70px;
   width: 100px;
 }
 </style>

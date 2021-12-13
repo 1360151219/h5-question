@@ -92,7 +92,7 @@ export default class Four extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -8vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
@@ -122,10 +122,10 @@ export default class Four extends Vue {
   transform: translate(-50%, -50%);
 }
 .option_new_four {
-  height: 50px;
+  height: 60px;
   width: 230px;
   position: absolute;
-  top: 72%;
+  top: 73%;
   left: 54%;
   transform: translate(-50%, -50%);
 }

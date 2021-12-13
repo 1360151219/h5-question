@@ -32,24 +32,26 @@
         key="3"
         :class="isNew ? 'remove' : ''"
       >
-        <img src="../assets/cover/Q_gender.svg" class="Q_gender" />
-        <div class="male" @click="chooseGender(true)">
-          <div class="btn_mask male_mask"></div>
-        </div>
-        <div class="female" @click="chooseGender(false)">
-          <div class="btn_mask female_mask"></div>
+        <div class="gender_question_img">
+          <div class="male" @click="chooseGender(true)">
+            <div class="btn_mask male_mask"></div>
+          </div>
+          <div class="female" @click="chooseGender(false)">
+            <div class="btn_mask female_mask"></div>
+          </div>
         </div>
       </div>
       <div class="new_cover" v-show="isNew" key="4">
-        <img src="../assets/cover/leave_cover.svg" class="leave_cover" />
-        <img src="../assets/cover/Q_isnew.png" class="Q_isnew" />
-        <div class="new" @click="chooseNew(true)">
-          <div class="btn_mask male_mask"></div>
+        <div class="new_question">
+          <img src="../assets/cover/leave_cover.svg" class="leave_cover" />
+          <div class="new" @click="chooseNew(true)">
+            <div class="btn_mask male_mask"></div>
+          </div>
+          <div class="nonew" @click="chooseNew(false)">
+            <div class="btn_mask male_mask"></div>
+          </div>
+          <div class="back" @click="goback"></div>
         </div>
-        <div class="nonew" @click="chooseNew(false)">
-          <div class="btn_mask male_mask"></div>
-        </div>
-        <div class="back" @click="goback"></div>
       </div>
     </transition-group>
   </div>
@@ -265,6 +267,15 @@ export default class Home extends Vue {
   background-size: cover;
   background-repeat: repeat-y;
   animation: small 1s linear alternate;
+  .gender_question_img {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 258px;
+    height: 447px;
+    background-image: url(../assets/cover/gender_q_title.svg);
+  }
   .Q_gender {
     position: absolute;
     left: 50%;
@@ -275,17 +286,21 @@ export default class Home extends Vue {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 72vh;
+    top: 92%;
     left: 54%;
     transform: translate(-50%, -53%);
+    background-image: url(../assets/cover/gender_male.png);
+    background-size: 100%;
   }
   .female {
     height: 43px;
     width: 214px;
     position: absolute;
-    top: 53%;
+    top: 54%;
     left: 48%;
     transform: translate(-50%, -53%);
+    background-image: url(../assets/cover/gender_famale.png);
+    background-size: 100%;
   }
 }
 @keyframes leave {
@@ -305,12 +320,19 @@ export default class Home extends Vue {
   background-image: url(../assets/cover/default_cover.svg);
   background-size: cover;
   z-index: 2;
+  .new_question {
+    width: 100%;
+    height: 100%;
+    background-image: url(/img/Q_isnew_title.c173c9a8.png);
+    background-size: 258px 593px;
+    background-position: 50% 32%;
+  }
   .leave_cover {
     position: absolute;
     height: 100%;
     width: 100%;
     left: 50%;
-    bottom: 0;
+    bottom: -8vh;
     transform: translate(-50%);
     animation: leave 1s linear alternate;
   }
@@ -329,6 +351,8 @@ export default class Home extends Vue {
     top: 51%;
     left: 50%;
     transform: translate(-50%, -53%);
+    background: url(../assets/cover/new.png);
+    background-size: 100%;
   }
   .nonew {
     height: 43px;
@@ -337,6 +361,8 @@ export default class Home extends Vue {
     top: 68%;
     left: 53%;
     transform: translate(-50%, -53%);
+    background: url(../assets/cover/nonew.png);
+    background-size: 100%;
   }
 }
 .back {

@@ -91,7 +91,7 @@ export default class One extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -8vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
@@ -116,7 +116,7 @@ export default class One extends Vue {
   height: 60px;
   width: 230px;
   position: absolute;
-  top: 62%;
+  top: 61%;
   left: 47%;
   transform: translate(-50%, -50%);
 }
@@ -124,7 +124,7 @@ export default class One extends Vue {
   height: 60px;
   width: 240px;
   position: absolute;
-  top: 73%;
+  top: 71%;
   left: 53%;
   transform: translate(-50%, -50%);
 }

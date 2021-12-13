@@ -90,7 +90,7 @@ export default class Two extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -8vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
@@ -99,7 +99,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 45%;
+  top: 46%;
   left: 47%;
   transform: translate(-50%, -50%);
 }
@@ -131,15 +131,15 @@ export default class Two extends Vue {
   height: 50px;
   width: 214px;
   position: absolute;
-  top: 45%;
-  left: 47%;
+  top: 42%;
+  left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_two {
   height: 60px;
   width: 230px;
   position: absolute;
-  top: 55%;
+  top: 52%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
@@ -147,7 +147,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 240px;
   position: absolute;
-  top: 65%;
+  top: 62%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
@@ -155,7 +155,7 @@ export default class Two extends Vue {
   height: 50px;
   width: 250px;
   position: absolute;
-  top: 74%;
+  top: 72%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -164,7 +164,7 @@ export default class Two extends Vue {
   bottom: 14vh;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px;
+  height: 70px;
   width: 100px;
 }
 </style>

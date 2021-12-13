@@ -89,7 +89,7 @@ export default class Three extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -8vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
@@ -130,7 +130,7 @@ export default class Three extends Vue {
   height: 50px;
   width: 230px;
   position: absolute;
-  top: 45%;
+  top: 41%;
   left: 47%;
   transform: translate(-50%, -50%);
 }
@@ -138,7 +138,7 @@ export default class Three extends Vue {
   height: 50px;
   width: 236px;
   position: absolute;
-  top: 54%;
+  top: 50%;
   left: 53%;
   transform: translate(-50%, -50%);
 }
@@ -146,24 +146,24 @@ export default class Three extends Vue {
   height: 60px;
   width: 240px;
   position: absolute;
-  top: 64%;
+  top: 60%;
   left: 48%;
   transform: translate(-50%, -50%);
 }
 .option_four {
-  height: 50px;
+  height: 60px;
   width: 240px;
   position: absolute;
-  top: 74%;
+  top: 69%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
 .back {
   position: absolute;
-  bottom: 13vh;
+  bottom: 15vh;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px;
+  height: 70px;
   width: 100px;
 }
 </style>
