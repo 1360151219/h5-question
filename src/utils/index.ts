@@ -27,7 +27,7 @@ export async function recordAccessType(query: { access_type: number, request_id:
         data: query
     })).data
 }
-export async function recordRemainTime(query: { page_id: number, time: number, access_type: number, request_id: string }): Promise<void> {
+export async function recordRemainTime(query: { page_id: string, time: number, access_type: number, request_id: string }): Promise<void> {
     return (await axios({
         method: 'post',
         url: '/api/stay',
