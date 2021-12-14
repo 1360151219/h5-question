@@ -323,7 +323,7 @@ export default class Home extends Vue {
   .new_question {
     width: 100%;
     height: 100%;
-    background-image: url(/img/Q_isnew_title.c173c9a8.png);
+    background-image: url(../assets/cover/Q_isnew_title.png);
     background-size: 258px 593px;
     background-position: 50% 32%;
   }
@@ -332,7 +332,7 @@ export default class Home extends Vue {
     height: 100%;
     width: 100%;
     left: 50%;
-    bottom: -8vh;
+    bottom: 0vh;
     transform: translate(-50%);
     animation: leave 1s linear alternate;
   }

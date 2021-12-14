@@ -9,7 +9,7 @@
       <img
         v-else
         src="../assets/question/leave_six_old.svg"
-        class="leave_cover old_leave_cover"
+        class="leave_cover"
       />
 
       <img v-if="isNew" src="../assets/question/new_six.png" class="q_one" />
@@ -105,9 +105,6 @@ export default class Six extends Vue {
   pointer-events: none;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
-}
-.old_leave_cover {
-  bottom: -10vh !important;
 }
 .option_new_one {
   height: 50px;

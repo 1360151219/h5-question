@@ -90,7 +90,7 @@ export default class Two extends Vue {
 .leave_cover {
   position: absolute;
   width: 100%;
-  bottom: -8vh;
+  bottom: -2vh;
   left: 50%;
   transform: translate(-50%);
   animation: leave 1s linear alternate;
