@@ -181,10 +181,10 @@ export default class Res extends Vue {
 }
 .btn {
   position: absolute;
-  bottom: 0vh;
-  left: 34vw;
-  height: 110px;
-  width: 100px;
+  bottom: 9.48vh;
+  left: 12.5vw;
+  height: 4.94vh;
+  width: 28.75vw;
   z-index: 100;
 }
 .fadeChange-leave-active {

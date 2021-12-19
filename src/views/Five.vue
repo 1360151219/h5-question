@@ -6,19 +6,35 @@
       <img v-else src="../assets/question/old_five.png" class="q_one" />
       <div
         :class="isNew ? 'option_new_one' : 'option_one'"
-        @click="clickToNext(2, 5, '/six', 1.628)"
+        @click="
+          isNew
+            ? clickToNext(2, 5, '/six', 1.628)
+            : clickToNext(3, 1, '/six', 1.628)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_two' : 'option_two'"
-        @click="clickToNext(3, 1, '/six', 1.628)"
+        @click="
+          isNew
+            ? clickToNext(3, 1, '/six', 1.628)
+            : clickToNext(0, 0, '/six', 1.628)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_three' : 'option_three'"
-        @click="clickToNext(0, 4, '/six', 1.628)"
+        @click="
+          isNew
+            ? clickToNext(0, 4, '/six', 1.628)
+            : clickToNext(4, 4, '/six', 1.628)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_four' : 'option_four'"
-        @click="clickToNext(4, 3, '/six', 1.628)"
+        @click="
+          isNew
+            ? clickToNext(4, 3, '/six', 1.628)
+            : clickToNext(2, 5, '/six', 1.628)
+        "
       ></div>
       <div class="back" @click="goback"></div>
     </div>
@@ -33,7 +49,15 @@ import { recordRemainTime, uuid } from "@/utils";
 @Component
 export default class Five extends Vue {
   @Prop()
-  clickToNext!: (c: number, p: number, url: string, point: number) => void;
+  clickToNext!: (
+    c: number,
+    p: number,
+    url: string,
+    point: number,
+    ...args: any
+  ) => void;
+  @Prop()
+  goback!: () => void;
   @Prop()
   isNew!: boolean;
   @Prop()
@@ -56,9 +80,7 @@ export default class Five extends Vue {
       request_id: uuid,
     });
   }
-  goback() {
-    this.$router.go(-1);
-  }
+
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = this.leaveTime - this.enterTime;
@@ -115,7 +137,7 @@ export default class Five extends Vue {
   height: 60px;
   width: 230px;
   position: absolute;
-  top: 62%;
+  top: 61%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -123,7 +145,7 @@ export default class Five extends Vue {
   height: 70px;
   width: 230px;
   position: absolute;
-  top: 73%;
+  top: 72%;
   left: 54%;
   transform: translate(-50%, -50%);
 }

@@ -15,6 +15,7 @@
       <transition name="fade">
         <router-view
           :clickToNext="clickToNext"
+          :goback="goback"
           :num="num"
           :isNew="isNew"
           :isMale="isMale"
@@ -37,16 +38,35 @@ import { recordAccessType, recordRemainTime, ParseQuery, uuid } from "@/utils";
 export default class App extends Vue {
   isShow = false;
   timer = -1;
-  clickToNext(c: number, p: number, url: string, point: number) {
+  clickToNext(c: number, p: number, url: string, point: number, ...args: any) {
     if (this.timer !== -1) clearTimeout(this.timer);
     this.timer = setTimeout(() => {
+      if (args) {
+        for (let i = 0; i < args.length; i++) {
+          if (i & 1 && args[i]) {
+            this.characters[args[i]] += point;
+          } else if ((i & 1) === 0 && args[i]) {
+            this.places[args[i]] += point;
+          }
+        }
+      }
       this.characters[c] += point;
       this.places[p] += point;
       this.$router.push(url);
       this.timer = -1;
     }, 500);
   }
+
+  gobackTimer = -1;
+  goback() {
+    if (this.gobackTimer !== -1) clearTimeout(this.gobackTimer);
+    this.gobackTimer = setTimeout(() => {
+      this.$router.go(-1);
+      this.gobackTimer = -1;
+    }, 500);
+  }
   isPlay = true;
+  firstplay = true;
   musicToggle() {
     const music = document.getElementById("music") as HTMLVideoElement;
     if (music) {
@@ -78,6 +98,7 @@ export default class App extends Vue {
   enterTime = 0;
   leaveTime = 0;
   isQr = false;
+
   created() {
     /* 是否二维码进入 */
     this.isQr = "qr" in this.$route.query;
@@ -90,6 +111,15 @@ export default class App extends Vue {
     /* 停留时间 */
     this.enterTime = new Date().getTime();
     window.addEventListener("beforeunload", this.leaveHandler);
+
+    window.addEventListener("click", () => {
+      const music = document.getElementById("music") as HTMLVideoElement;
+      if (music.paused && this.firstplay) {
+        music.play();
+        this.firstplay = false;
+        this.isPlay = true;
+      }
+    });
   }
   leaveHandler() {
     this.leaveTime = new Date().getTime();

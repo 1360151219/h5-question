@@ -6,19 +6,35 @@
       <img v-else src="../assets/question/old_one.png" class="q_one" />
       <div
         :class="!isNew ? 'option_new_one' : 'option_one'"
-        @click="clickToNext(1, 4, '/two', 1.323)"
+        @click="
+          !isNew
+            ? clickToNext(1, 4, '/two', 1.323)
+            : clickToNext(1, 4, '/two', 1.323)
+        "
       ></div>
       <div
         :class="!isNew ? 'option_new_two' : 'option_two'"
-        @click="clickToNext(2, 5, '/two', 1.323)"
+        @click="
+          !isNew
+            ? clickToNext(3, 3, '/two', 1.323)
+            : clickToNext(2, 5, '/two', 1.323)
+        "
       ></div>
       <div
         :class="!isNew ? 'option_new_three' : 'option_three'"
-        @click="clickToNext(3, 2, '/two', 1.323)"
+        @click="
+          !isNew
+            ? clickToNext(2, 0, '/two', 1.323)
+            : clickToNext(3, 2, '/two', 1.323)
+        "
       ></div>
       <div
         :class="!isNew ? 'option_new_four' : 'option_four'"
-        @click="clickToNext(1, 2, '/two', 1.323)"
+        @click="
+          !isNew
+            ? clickToNext(4, 2, '/two', 1.323)
+            : clickToNext(3, 1, '/two', 1.323)
+        "
       ></div>
       <div class="back" @click="goback"></div>
     </div>
@@ -34,7 +50,15 @@ import { recordRemainTime, uuid } from "@/utils";
 @Component
 export default class One extends Vue {
   @Prop()
-  clickToNext!: (c: number, p: number, url: string, point: number) => void;
+  clickToNext!: (
+    c: number,
+    p: number,
+    url: string,
+    point: number,
+    ...args: any
+  ) => void;
+  @Prop()
+  goback!: () => void;
   @Prop()
   isNew!: boolean;
   @Prop()
@@ -45,9 +69,7 @@ export default class One extends Vue {
     this.enterTime = new Date().getTime();
     window.addEventListener("beforeunload", this.leaveHandler);
   }
-  goback() {
-    this.$router.go(-1);
-  }
+
   beforeDestroy() {
     /* 停留时间 */
     this.leaveTime = new Date().getTime();

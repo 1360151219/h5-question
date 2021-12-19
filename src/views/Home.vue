@@ -329,7 +329,7 @@ export default class Home extends Vue {
   }
   .leave_cover {
     position: absolute;
-    height: 100%;
+    height: 90%;
     width: 100%;
     left: 50%;
     bottom: 0vh;
@@ -368,10 +368,10 @@ export default class Home extends Vue {
 .back {
   position: absolute;
   top: auto !important;
-  bottom: 17vh;
+  bottom: 15vh;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px;
+  height: 100px;
   width: 100px;
 }
 </style>

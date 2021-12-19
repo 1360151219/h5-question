@@ -6,19 +6,35 @@
       <img v-else src="../assets/question/old_four.png" class="q_one" />
       <div
         :class="isNew ? 'option_new_one' : 'option_one'"
-        @click="clickToNext(0, 1, '/five', 1.523)"
+        @click="
+          isNew
+            ? clickToNext(0, 1, '/five', 1.523)
+            : clickToNext(0, 0, '/five', 1.523)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_two' : 'option_two'"
-        @click="clickToNext(3, 3, '/five', 1.523)"
+        @click="
+          isNew
+            ? clickToNext(3, 3, '/five', 1.523)
+            : clickToNext(4, 2, '/five', 1.523)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_three' : 'option_three'"
-        @click="clickToNext(2, 2, '/five', 1.523)"
+        @click="
+          isNew
+            ? clickToNext(2, 2, '/five', 1.523)
+            : clickToNext(5, 0, '/five', 1.523)
+        "
       ></div>
       <div
         :class="isNew ? 'option_new_four' : 'option_four'"
-        @click="clickToNext(5, 5, '/five', 1.523)"
+        @click="
+          isNew
+            ? clickToNext(5, 5, '/five', 1.523)
+            : clickToNext(4, 3, '/five', 1.523)
+        "
       ></div>
       <div class="back" @click="goback"></div>
     </div>
@@ -35,7 +51,8 @@ import { recordRemainTime, uuid } from "@/utils";
 export default class Four extends Vue {
   @Prop()
   clickToNext!: (c: number, p: number, url: string, point: number) => void;
-
+  @Prop()
+  goback!: () => void;
   @Prop()
   isNew!: boolean;
   @Prop()
@@ -58,9 +75,7 @@ export default class Four extends Vue {
       request_id: uuid,
     });
   }
-  goback() {
-    this.$router.go(-1);
-  }
+
   async leaveHandler() {
     this.leaveTime = new Date().getTime();
     const remain = this.leaveTime - this.enterTime;
